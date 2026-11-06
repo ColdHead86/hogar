@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#1A5F6E">
 <meta name="description" content="Gastos del hogar de Pablo y Pau">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-192.png?v=2">
+<link rel="apple-touch-icon" href="icon-192.png?v=2">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Hogar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,6 +68,22 @@ button{cursor:pointer}
 .top-actions{display:flex;align-items:center;gap:8px}
 .chip-person{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px 0 6px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-weight:700}
 .chip-person .av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-strong);font-size:13px}
+.av-me{min-height:36px;padding:0 12px;border-radius:999px;display:inline-flex;align-items:center;background:var(--accent-soft);color:var(--accent-strong);font-weight:800;font-size:14px;flex:none}
+.chip-set{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px 0 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;font-size:15px;text-decoration:none;flex:none}
+.chip-set svg{width:20px;height:20px}
+.chip-set[aria-current]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.sec-l{margin:10px 4px -2px;font-size:12.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.mini3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.mini3>div{border:1px solid var(--line-soft);background:var(--sunken);border-radius:12px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.mini3 span{font-size:12px;color:var(--muted);line-height:1.25}
+.mini3 b{font-size:16px}
+.net{display:flex;flex-direction:column;gap:2px;padding:4px 0 12px}
+.net b{font-size:28px;line-height:1.1}
+.dt{width:46px;flex:none;border-radius:10px;background:var(--sunken);color:var(--ink-2);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5px 0;line-height:1.05}
+.dt b{font-size:17px}
+.dt span{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.dt.late{background:var(--warn-soft);color:var(--warn)}
+.dt.done{background:var(--ok-soft);color:var(--ok)}
 .icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
 .icon-btn svg,.ic{width:22px;height:22px;flex:none}
 
@@ -329,6 +345,7 @@ var IC = {
   swap: '<path d="M4 8h14l-3-3M20 16H6l3 3"/>',
   chart: '<path d="M5 20V11M11 20V5M17 20v-7M2 20h20"/>',
   gear: '<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
+  cog: '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
   cart: '<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2.5 3.5h3l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.3a1.5 1.5 0 0 0 1.4-1.1L21 7.5H6.4"/>',
   apple: '<path d="M12 7c-1-2.5-3-3.5-5-3"/><path d="M12 7.5c-4.5-2-8 1-8 5.5 0 4.2 3 8 5.5 8 1 0 1.6-.5 2.5-.5s1.5.5 2.5.5c2.5 0 5.5-3.8 5.5-8 0-4.5-3.5-7.5-8-5.5z"/>',
   receipt: '<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/>',
@@ -429,8 +446,8 @@ function load(){
     try {
       var c = JSON.parse(decodeURIComponent(escape(atob(h.slice(3)))));
       if (c.u && c.k) { conn = { url: c.u, key: c.k }; lsSet(CONN_KEY, JSON.stringify(conn)); }
-      if (c.p) { S.me = c.p; S.meAsked = true; }
-      ui.pendingToast = "Conectado a la planilla compartida" + (c.p ? " como " + NAME[c.p] : "") + ".";
+      if (c.p && !S.meAsked) { S.me = c.p; S.meAsked = true; }
+      ui.pendingToast = "Conectado a la planilla compartida" + (S.meAsked ? " como " + NAME[S.me] : "") + ".";
     } catch (e) { ui.pendingToast = "El enlace de conexión no es válido. Pídele a Pablo uno nuevo."; }
     try { history.replaceState(null, "", location.pathname + location.search + "#inicio"); } catch (e) { location.hash = "inicio"; }
   }
@@ -530,7 +547,7 @@ function connect(url, key, me){
     return { data: d, seeded: false };
   }).then(function(r){
     lsSet(CONN_KEY, JSON.stringify(conn)); queue = []; syncErr = "";
-    if (me) { S.me = me; S.meAsked = true; }
+    if (me && !S.meAsked) { S.me = me; S.meAsked = true; }
     applyServer(r.data);
     syncing = false; render();
     toast(r.seeded ? "Conectado. Se cargaron los datos iniciales en la planilla." : "Conectado. Se trajeron los datos de la planilla.");
@@ -677,7 +694,7 @@ function pendientes(){
   var ce = dankoEnd(TODAY);
   for (var e = dankoEnd(addDays(S.config.dankoLiqHasta, 1)); e <= ce; e = dankoEnd(addDays(e, 1))) {
     var dk = dankoCalc(e);
-    if (!dk.done && dk.items.length) out.push({ k: "danko-" + e, t: "Danko · " + dShort(dk.st) + " al " + dShort(e), d: dk.enCurso ? "cierra el " + dShort(e) + " · si se cerrara hoy" : "período cerrado", r: dk.r, sort: e, danko: true });
+    if (!dk.done && dk.items.length) out.push({ k: "danko-" + e, t: "Danko · " + dShort(dk.st) + " al " + dShort(e), d: dk.enCurso ? "cierra el " + dShort(e) + " · si se cerrara hoy" : "período cerrado", r: dk.r, sort: e, danko: true, cur: dk.enCurso });
   }
   out.sort(function(x, y){ return x.sort < y.sort ? -1 : 1; });
   return out;
@@ -938,47 +955,126 @@ function lineChart(o){
 
 /* ---------- Vistas ---------- */
 function topBar(title, sub){
-  var me = S.me || "pablo";
+  var me = S.meAsked ? S.me : null;
   return '<header class="top"><div style="min-width:0"><p class="date">' + esc(sub) + ' · <span id="sync-st" class="sync">' + esc(syncText()) + "</span></p><h1>" + esc(title) + '</h1></div><div class="top-actions">' +
-    '<button type="button" class="chip-person" data-act="me-toggle" aria-label="Este celular es de ' + NAME[me] + '. Cambiar"><span class="av">' + NAME[me].charAt(0) + "</span>" + NAME[me] + "</button>" +
-    '<a class="icon-btn" href="#ajustes" aria-label="Ajustes">' + icon("gear") + "</a></div></header>";
+    (me ? '<span class="av-me" role="img" aria-label="Este celular es de ' + NAME[me] + '" title="Este celular es de ' + NAME[me] + '">' + NAME[me] + "</span>" : "") +
+    '<a class="chip-set" href="#ajustes"' + (ui.view === "ajustes" ? ' aria-current="page"' : "") + ">" + icon("cog") + "<span>Ajustes</span></a></div></header>";
+}
+function meCard(){
+  if (ui.mePick) return '<div class="card"><h2>¿Este celular es de ' + NAME[ui.mePick] + '?</h2><p class="sub">Queda fijo y no se puede cambiar después. Así «Pagó» viene puesto con el nombre correcto y nadie anota a nombre del otro por error.</p><div class="btns" style="margin-top:12px"><button type="button" class="btn" data-act="me-ok" data-v="' + ui.mePick + '">Sí, es de ' + NAME[ui.mePick] + '</button><button type="button" class="btn quiet" data-act="me-back">Volver</button></div></div>';
+  return '<div class="card"><h2>¿De quién es este celular?</h2><p class="sub">Se elige una sola vez. Desde ahí, «Pagó» viene puesto con ese nombre cada vez que anoten.</p><div class="btns" style="margin-top:12px"><button type="button" class="btn sec" data-act="me" data-v="pablo">Pablo</button><button type="button" class="btn sec" data-act="me" data-v="pau">Pau</button></div></div>';
 }
 
 function viewInicio(){
-  var h = "", ws = weekStart(TODAY), f = foodWeekCalc(ws);
-  var left = f.pres - f.total, dLeft = Math.max(1, 7 - (parse(TODAY).getDay() + 6) % 7);
-  h += topBar("Hogar", cap(dLong(TODAY)));
+  var m = mk(TODAY), h = topBar("Hogar", cap(dLong(TODAY)));
   h += '<div class="stack">';
-  if (!S.meAsked) h += '<div class="card"><h2>¿De quién es este celular?</h2><p class="sub">Así, «Pagó» viene puesto con tu nombre cada vez que anotas.</p><div class="btns" style="margin-top:12px"><button class="btn sec" data-act="me" data-v="pablo">Pablo</button><button class="btn sec" data-act="me" data-v="pau">Pau</button></div></div>';
+  if (!S.meAsked) h += meCard();
   if (!conn) h += '<div class="banner">' + icon("info") + '<div><b>Este celular todavía no está conectado a la planilla compartida.</b> Lo que anoten queda solo aquí. <button type="button" class="btn small quiet" style="margin-top:8px" data-act="go" data-v="ajustes-con">Conectar</button></div></div>';
   else if (syncErr) h += '<div class="banner warnb">' + icon("info") + "<div>" + esc(syncErr) + '</div><button type="button" class="btn small quiet" data-act="sync-now">Reintentar</button></div>';
-  /* Héroe */
+  h += '<p class="sec-l">La plata de los dos</p>' + cfCard(m) + entreCard();
+  h += '<p class="sec-l">Presupuesto</p>' + foodHero(m) + presCard(m);
+  h += '<p class="sec-l">Por pagar o anotar</p>' + agendaCard(m);
+  return h + "</div>";
+}
+function cfMes(m){
+  var dep = 0, out = 0;
+  S.liqs.forEach(function(l){
+    if (mk(l.fecha) !== m) return;
+    if (l.tipo === "hogar") dep += (l.montos.pauACF || 0) + (l.montos.pabloACF || 0);
+    if (l.tipo === "reemb") out += (l.montos.cfAPablo || 0) + (l.montos.cfAPau || 0);
+  });
+  S.movs.forEach(function(x){ if (x.paga === "cf" && mk(x.fecha) === m) out += x.monto; });
+  return { dep: dep, out: out };
+}
+function cfCard(m){
+  var c = S.config.cf, sal = cfSaldo(), cm = cfMes(m), re = reembItems();
+  var ra = sum(re.filter(function(x){ return x.paga === "pablo"; }), function(x){ return x.monto; }), rb = sum(re.filter(function(x){ return x.paga === "pau"; }), function(x){ return x.monto; });
+  var hc = hogarCalc(m), nxt = hc.liq ? hogarCalc(addMonths(m, 1)) : hc;
+  var h = '<section class="card" data-info="cf"><div class="card-h"><h2>Cuenta familiar · ' + esc(c.banco) + "</h2>" + (c.conocido ? "" : '<span class="pill warn">Falta el saldo real</span>') + "</div>";
+  h += '<p class="sub">' + (c.conocido ? "Saldo estimado hoy" : "Según lo anotado desde el " + dShort(c.fecha || "2026-10-01")) + '</p><p class="big num" style="font-size:34px;margin:2px 0 0">' + fmt(sal) + "</p>";
+  h += '<div class="mini3"><div><span>Entró en ' + monthName(m) + '</span><b class="num">' + fmt(cm.dep) + '</b></div><div><span>Salió en ' + monthName(m) + '</span><b class="num">' + fmt(cm.out) + '</b></div><div><span>Por devolver' + (ra && !rb ? " a Pablo" : rb && !ra ? " a Pau" : "") + '</span><b class="num">' + fmt(ra + rb) + "</b></div></div>";
+  var dep = nxt.listo ? nxt.r.pauACF : null;
+  h += '<p class="note">' + (ra + rb ? "Después de devolver lo pendiente quedan <b>" + fmt(sal - ra - rb) + "</b>. " : "") + (hc.liq ? "Próximo depósito de Pau, del 2 al 5 de " + monthName(nxt.m) + ": " : "Depósito de Pau este mes: ") + (dep == null ? "se calcula al anotar el arriendo." : "<b>" + fmt(dep) + "</b>" + (nxt.have.ggcc ? "." : ", antes de los gastos comunes.")) + "</p>";
+  h += '<div class="btns" style="margin-top:12px">' + (re.length ? '<button type="button" class="btn sec small" data-act="go-liq" data-v="reemb">Devolver ' + fmt(ra + rb) + "</button>" : "") + '<button type="button" class="btn sec small" data-act="go" data-v="ajustes-cf">Anotar saldo del banco</button></div></section>';
+  return h;
+}
+function entreCard(){
+  var p = pendientes().filter(function(x){ return x.k !== "reemb"; });
+  var nums = p.filter(function(x){ return typeof x.r === "number"; }), net = sum(nums, function(x){ return x.r; });
+  var h = '<section class="card tight" data-info="pend"><div class="card-h"><h2>Entre Pau y Pablo</h2><a class="link" href="#liquidar">Liquidar</a></div>';
+  if (!p.length) return h + '<div class="row"><span style="color:var(--ok)">' + icon("check") + '</span><div class="grow"><div class="t">Están al día</div><div class="d">No se deben nada.</div></div></div></section>';
+  h += '<div class="net"><span class="sub" style="margin:0">' + (net > 0 ? "En total, Pau le debe a Pablo" : net < 0 ? "En total, Pablo le debe a Pau" : "En total quedan a mano") + '</span><b class="num">' + fmt(Math.abs(net)) + "</b>" + (p.some(function(x){ return x.cur; }) ? '<span class="sub" style="margin:0">Incluye Danko calculado a hoy; cambia hasta el corte.</span>' : "") + "</div>";
+  p.forEach(function(x){
+    h += '<a class="row" href="#liquidar" data-act="go-liq" data-v="' + x.k + '" style="color:inherit;text-decoration:none"><div class="grow"><div class="t">' + esc(x.t) + '</div><div class="d">' + esc(x.d) + '</div></div><div class="amt num">' + (x.r == null ? '<span class="pill warn">Falta</span>' : fmt(Math.abs(x.r)) + "<small>" + dirShort(x.r) + "</small>") + "</div></a>";
+  });
+  return h + "</section>";
+}
+function foodHero(m){
+  var ws = weekStart(TODAY), f = foodWeekCalc(ws), left = f.pres - f.total, dLeft = Math.max(1, 7 - (parse(TODAY).getDay() + 6) % 7);
+  var list = movsIn(m + "-01", m + "-" + pad(daysIn(m))), fm = sum(list.filter(function(x){ return x.cat === "super" || x.cat === "feria"; }), function(x){ return x.monto; });
   var pct = Math.min(100, f.total / f.pres * 100);
-  h += '<section class="hero" data-info="food"><div><h2>Alimentación de la semana</h2><span class="muted">' + dDay(ws) + " a " + dDay(f.we) + " · supermercado y feria</span></div>";
+  var h = '<section class="hero" data-info="food"><div><h2>Alimentación de la semana</h2><span class="muted">' + dDay(ws) + " a " + dDay(f.we) + " · supermercado y feria</span></div>";
   if (left >= 0) h += '<div><p class="big" style="margin:0">' + fmt(left) + '</p><p style="margin:6px 0 0">quedan de ' + fmt(f.pres) + " · " + dLeft + (dLeft === 1 ? " día" : " días") + ", <b>" + fmt(left / dLeft) + " por día</b></p></div>";
-  else h += '<div><p class="big" style="margin:0">' + fmt(-left) + '</p><p style="margin:6px 0 0">sobre el presupuesto de ' + fmt(f.pres) + '</p></div><p class="over" style="margin:0">Se pasaron esta semana. La diferencia sale de la cuenta familiar.</p>';
+  else h += '<div><p class="big" style="margin:0">' + fmt(-left) + '</p><p style="margin:6px 0 0">sobre la referencia de ' + fmt(f.pres) + '</p></div><p class="over" style="margin:0">Esta semana se pasaron de la referencia. La diferencia sale de la cuenta familiar.</p>';
   h += '<div class="track" aria-hidden="true"><i style="width:' + pct.toFixed(1) + '%"></i></div>';
   h += '<div class="split">' + foodSplit("Supermercado", f.su, S.config.food.super) + foodSplit("Feria", f.fe, S.config.food.feria) + "</div>";
-  h += '<button type="button" class="hero-btn" data-act="add" data-cat="super">' + "Anotar compra</button></section>";
-  /* Por liquidar */
-  var p = pendientes();
-  h += '<section class="card tight" data-info="pend"><div class="card-h"><h2>Pendiente entre ustedes</h2><a class="link" href="#liquidar">Liquidar</a></div>';
-  if (!p.length) h += '<div class="row"><span style="color:var(--ok)">' + icon("check") + '</span><div class="grow"><div class="t">Están al día</div><div class="d">No hay nada pendiente entre ustedes.</div></div></div>';
-  p.forEach(function(x){
-    h += '<a class="row" href="#liquidar" data-act="go-liq" data-v="' + x.k + '" style="color:inherit;text-decoration:none"><div class="grow"><div class="t">' + esc(x.t) + '</div><div class="d">' + esc(x.d) + '</div></div><div class="amt num">' + (x.r == null ? (x.txt ? '<span style="font-size:14px">' + esc(x.txt) + "</span>" : '<span class="pill warn">Falta</span>') : fmt(Math.abs(x.r)) + "<small>" + dirShort(x.r) + "</small>") + "</div></a>";
-  });
-  h += "</section>";
-  h += cuentasDelMes(mk(TODAY));
-  /* Cuenta familiar */
-  var sal = cfSaldo(), hc = hogarCalc(mk(TODAY)), nxt = hc.liq ? hogarCalc(addMonths(mk(TODAY), 1)) : hc, cfc = S.config.cf;
-  h += '<section class="card" data-info="cf"><div class="card-h"><h2>Cuenta familiar · ' + esc(cfc.banco) + '</h2>' + (cfc.conocido ? "" : '<span class="pill warn">Falta el saldo real</span>') + "</div>";
-  if (cfc.conocido) h += '<p class="sub">Saldo estimado hoy</p><p class="big num" style="font-size:30px;margin:4px 0 0">' + fmt(sal) + "</p>";
-  else h += '<p class="sub">Entradas menos salidas anotadas desde el ' + dShort(cfc.fecha) + '</p><p class="big num" style="font-size:24px;margin:4px 0 0">' + fmt(sal) + '</p><p class="note">Para ver el saldo, anoten el que muestra el banco.</p>';
-  var dep = nxt.listo ? nxt.r.pauACF : null;
-  h += '<p class="note">' + (hc.liq ? "Pau ya depositó " + fmt(hc.r.pauACF) + " este mes. Próximo depósito, del 2 al 5 de " + monthName(nxt.m) + ": " : "Depósito de Pau este mes: ") + (dep == null ? "se calcula al anotar el arriendo." : "<b>" + fmt(dep) + "</b>" + (nxt.have.ggcc ? "." : ", antes de los gastos comunes.")) + "</p>";
-  h += '<div class="btns" style="margin-top:12px"><button type="button" class="btn sec small" data-act="go" data-v="ajustes-cf">Anotar saldo del banco</button></div></section>';
-  h += "</div>";
+  h += '<span class="muted">En ' + monthName(m) + " van " + fmt(fm) + " de " + fmt(foodMonth(m)) + " de referencia para el mes.</span>";
+  return h + '<button type="button" class="hero-btn" data-act="add" data-cat="super">Anotar compra</button></section>';
+}
+function presCard(m){
+  var list = movsIn(m + "-01", m + "-" + pad(daysIn(m)));
+  var food = sum(list.filter(function(x){ return x.cat === "super" || x.cat === "feria"; }), function(x){ return x.monto; }), foodRef = foodMonth(m);
+  var hog = 0, hogRef = 0;
+  ["arriendo", "ggcc", "luz", "gas", "internet", "streaming"].forEach(function(sub){ hog += sum(list.filter(function(x){ return x.cat === "hogar" && x.sub === sub; }), function(x){ return x.monto; }); hogRef += presSub(sub, m); });
+  var otr = sum(list.filter(function(x){ return (x.cat === "hogar" && x.sub === "otro") || (x.cat === "comp" && x.paga === "cf"); }), function(x){ return x.monto; }), otrRef = presSub("otro", m);
+  var ap = aporte(m), proj = Math.max(food, foodRef) + Math.max(hog, hogRef) + Math.max(otr, otrRef), queda = ap.total - proj;
+  var h = '<section class="card" data-info="num-hogar:' + m + '"><div class="card-h"><h2>Presupuesto de ' + monthName(m) + '</h2><a class="link" href="#numeros">Detalle</a></div><p class="sub">Lo gastado en el mes; la raya marca la referencia.</p>';
+  h += bullet("Alimentación", food, foodRef, "supermercado y feria") + bullet("Cuentas del hogar", hog, hogRef, "arriendo y boletas") + bullet("Otros con la cuenta familiar", otr, otrRef, "");
+  h += '<p class="note">Aportes de ' + monthName(m) + ": " + fmt(ap.total) + ". Si lo que falta del mes sigue la referencia, " + (queda >= 0 ? "sobrarían <b>" + fmt(queda) + "</b>." : "faltarían <b>" + fmt(-queda) + "</b>.") + "</p></section>";
   return h;
+}
+function dtBox(fecha, cls){ var d = parse(fecha); return '<div class="dt' + (cls ? " " + cls : "") + '"><b>' + d.getDate() + "</b><span>" + MES3[d.getMonth()] + "</span></div>"; }
+function agendaCard(m){
+  var pend = [], done = [], liq = liqFind("hogar", m), due = m + "-05", paid = 0, last = m + "-" + pad(daysIn(m));
+  ["arriendo", "ggcc", "luz", "gas", "internet", "streaming"].forEach(function(sub){
+    var it = S.movs.filter(function(x){ return x.cat === "hogar" && x.sub === sub && mk(x.fecha) === m; });
+    var payer = S.config.payer[sub], fixed = recById(sub);
+    if (it.length) {
+      paid++;
+      done.push({ sort: it[0].fecha, html: '<button type="button" class="row" style="width:100%;background:none;border-left:0;border-right:0;border-bottom:0;text-align:left;color:inherit" data-act="edit" data-v="' + it[0].id + '">' + dtBox(it[0].fecha, "done") + '<div class="grow"><div class="t">' + SUBS[sub] + '</div><div class="d">Pagó ' + NAME[it[0].paga] + '</div></div><div class="amt num">' + fmt(sum(it, function(x){ return x.monto; })) + "</div></button>" });
+      return;
+    }
+    var late = TODAY > due, est = fixed ? recAmount(sub, m + "-28") : 0;
+    var d = (payer === "cf" ? "Cuenta familiar" : NAME[payer]) + " · " + (fixed ? fmt(est) + (sub === "streaming" ? " · automático" : "") : "referencia " + fmt(presSub(sub, m))) + (liq ? "" : late ? " · se pagaba del 2 al 5" : " · del 2 al 5");
+    pend.push({ sort: due, html: '<div class="row">' + dtBox(due, late ? "late" : "") + '<div class="grow"><div class="t">' + SUBS[sub] + '</div><div class="d">' + d + "</div></div>" +
+      (fixed ? '<button type="button" class="btn small sec" data-act="quick" data-sub="' + sub + '" data-m="' + m + '">Pagado</button>' : '<button type="button" class="btn small sec" data-act="add" data-cat="hogar" data-sub="' + sub + '">Anotar</button>') + "</div>" });
+  });
+  /* Seguro de Danko: automático el 14 */
+  var cact = recAmount("cactus", m + "-14"), cr = recById("cactus");
+  if (cact > 0) {
+    var cd = m + "-14", hecho = TODAY >= cd;
+    (hecho ? done : pend).push({ sort: cd, html: '<div class="row">' + dtBox(cd, hecho ? "done" : "") + '<div class="grow"><div class="t">Seguro de Danko</div><div class="d">' + NAME[cr.paga] + " · cobro automático</div></div>" + '<div class="amt num">' + fmt(cact) + "</div></div>" });
+  }
+  /* Carmen: dos visitas y cotizaciones al mes */
+  var vis = S.movs.filter(function(x){ return x.cat === "carmen" && x.tipo === "visita" && mk(x.fecha) === m; });
+  var visN = sum(vis, function(x){ return Math.max(1, Math.round(x.monto / (recAmount("visita", x.fecha) || 30000))); });
+  var cot = S.movs.some(function(x){ return x.cat === "carmen" && x.tipo === "cotiz" && mk(x.fecha) === m; });
+  var cOk = visN >= 2 && cot;
+  (cOk ? done : pend).push({ sort: last, html: '<div class="row">' + dtBox(last, cOk ? "done" : "") + '<div class="grow"><div class="t">Carmen</div><div class="d">' + visN + " de 2 visitas · cotizaciones " + (cot ? "pagadas" : "pendientes") + "</div></div>" +
+    (cOk ? "" : '<div class="btns" style="flex:none;gap:6px">' + (visN < 2 ? '<button type="button" class="btn small sec" data-act="quick-carmen" data-v="visita">+ Visita</button>' : "") + (cot ? "" : '<button type="button" class="btn small sec" data-act="quick-carmen" data-v="cotiz">Cotiz.</button>') + "</div>") + "</div>" });
+  /* Fin de mes: adelanto del arriendo del mes siguiente */
+  if (+TODAY.slice(8, 10) >= 25) {
+    var nm = addMonths(m, 1);
+    if (!S.movs.some(function(x){ return x.cat === "hogar" && x.sub === "arriendo" && mk(x.fecha) === nm; }))
+      pend.push({ sort: nm + "-05", html: '<div class="row">' + dtBox(nm + "-05") + '<div class="grow"><div class="t">Arriendo de ' + monthName(nm) + '</div><div class="d">' + NAME[S.config.payer.arriendo] + " · " + fmt(recAmount("arriendo", nm + "-28")) + " · del 2 al 5</div></div>" + '<button type="button" class="btn small sec" data-act="quick" data-sub="arriendo" data-m="' + nm + '">Pagado</button></div>' });
+  }
+  pend.sort(function(a, b){ return a.sort < b.sort ? -1 : 1; });
+  done.sort(function(a, b){ return a.sort < b.sort ? -1 : 1; });
+  var h = '<section class="card tight" data-info="cuentas:' + m + '"><div class="card-h"><h2>Cuentas de ' + monthName(m) + '</h2><span class="sub" style="margin:0">' + paid + " de 6 pagadas</span></div>";
+  if (liq && pend.some(function(x){ return x.sort === due; })) h += '<p class="sub" style="margin:0 0 6px">El hogar de ' + monthName(m) + " ya se liquidó: lo que se pague ahora lo devuelve la cuenta familiar a quien lo pagó.</p>";
+  h += pend.length ? pend.map(function(x){ return x.html; }).join("") : '<div class="row"><span style="color:var(--ok)">' + icon("check") + '</span><div class="grow"><div class="t">Todo pagado y anotado</div></div></div>';
+  if (done.length) h += '<p class="grp">Ya pagado</p>' + done.map(function(x){ return x.html; }).join("");
+  return h + "</section>";
 }
 function foodSplit(n, v, p){
   var pct = Math.min(100, v / p * 100);
@@ -1306,7 +1402,7 @@ function viewAjustes(){
     h += '<p class="sub">Este celular está conectado. Lo que anota cualquiera de los dos se guarda en la planilla de Google y aparece en ambos celulares.</p>';
     h += '<div class="kv"><span>Estado</span><span class="sync ' + (syncErr ? "err" : queue.length ? "busy" : "ok") + '">' + esc(syncText()) + "</span></div>";
     if (syncErr) h += '<p class="err" style="font-weight:400">' + esc(syncErr) + "</p>";
-    h += '<div class="btns" style="margin-top:12px"><button type="button" class="btn sec" data-act="sync-now">Sincronizar ahora</button><button type="button" class="btn sec" data-act="link-pau">Copiar enlace para Pau</button></div>';
+    h += '<div class="btns" style="margin-top:12px"><button type="button" class="btn sec" data-act="sync-now">Sincronizar ahora</button>' + (S.me !== "pau" ? '<button type="button" class="btn sec" data-act="link-pau">Copiar enlace para Pau</button>' : "") + "</div>";
     h += '<textarea id="link-box" class="input" style="margin-top:10px;min-height:80px;padding:10px;font-size:12px" readonly hidden></textarea>';
     h += ui.confirm === "discon" ? '<div class="confirm actions"><p>¿Desconectar este celular de la planilla?</p><div class="btns"><button class="btn danger" data-act="discon">Desconectar</button><button class="btn quiet" data-act="cancel">Cancelar</button></div></div>' : '<div class="actions"><button type="button" class="btn quiet block" data-act="ask" data-v="discon">Desconectar este celular</button></div>';
   } else {
@@ -1314,10 +1410,10 @@ function viewAjustes(){
     h += '<div class="field" style="margin-top:12px"><label for="con-url">Dirección de la aplicación web</label><input id="con-url" class="input" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off"></div>';
     h += '<div class="field" style="margin-top:10px"><label for="con-key">Clave</label><input id="con-key" class="input" autocomplete="off" placeholder="hogar-…"></div>';
     h += '<div style="margin-top:12px"><button type="button" class="btn block" data-act="connect"' + (syncing ? " disabled" : "") + ">" + (syncing ? "Conectando…" : "Conectar") + "</button></div>";
-    h += '<p class="hint">Si la planilla está vacía, la app carga los datos iniciales: octubre y noviembre, Danko 2026 y lo anotado en este celular.</p>';
+    h += '<p class="hint">Si la planilla ya tiene datos, la app los trae. Si está vacía, carga los datos iniciales.</p>';
   }
   h += "</section>";
-  h += '<section class="card"><h2>Este celular</h2><p class="sub">Define quién aparece en «Pagó» al anotar.</p><div class="seg" style="margin-top:10px">' + ["pablo", "pau"].map(function(p){ return '<button type="button" aria-pressed="' + (me === p) + '" data-act="me" data-v="' + p + '">' + NAME[p] + "</button>"; }).join("") + "</div></section>";
+  h += S.meAsked ? '<section class="card"><h2>Este celular</h2><div class="kv" style="border:0"><span>Es de</span><b>' + NAME[S.me] + '</b></div><p class="sub">Quedó fijo la primera vez y no se puede cambiar. «Pagó» viene puesto con este nombre al anotar.</p></section>' : meCard();
   /* Recurrentes */
   h += '<section class="card tight"><div class="card-h"><h2>Gastos recurrentes</h2></div><p class="sub">Toca uno para cambiar su monto y desde cuándo rige. El monto anterior queda guardado.</p>';
   [["hogar", "Hogar"], ["danko", "Danko"], ["carmen", "Carmen"]].forEach(function(g){
@@ -1555,15 +1651,17 @@ document.addEventListener("click", function(e){
     case "cancel-s": ui.confirm = null; renderSheet(); break;
     case "f-del": var gone = byId(F.id); S.movs = S.movs.filter(function(x){ return x.id !== F.id; }); ui.confirm = null; save(); closeSheet(); render(); toast("Gasto eliminado.", function(){ S.movs.push(gone); save(); render(); }); break;
     case "undo": if (ui.toast && ui.toast.undo) { ui.toast.undo(); } document.getElementById("toast-root").innerHTML = ""; ui.toast = null; break;
-    case "me": S.me = v; S.meAsked = true; persist(); render(); toast("Este celular quedó como de " + NAME[v] + "."); break;
-    case "me-toggle": S.me = other(S.me || "pablo"); S.meAsked = true; persist(); render(); toast("Ahora este celular es de " + NAME[S.me] + "."); break;
+    case "me": if (!S.meAsked) { ui.mePick = v; render(); } break;
+    case "me-ok": if (!S.meAsked && (v === "pablo" || v === "pau")) { S.me = v; S.meAsked = true; ui.mePick = null; persist(); render(); toast("Listo: este celular quedó como de " + NAME[v] + "."); } break;
+    case "me-back": ui.mePick = null; render(); break;
+    case "me-toggle": break;
     case "hide-banner": ui.bannerHidden = true; render(); break;
     case "sync-now": syncErr = ""; pull(); break;
     case "connect":
       var cu = document.getElementById("con-url").value, ck = document.getElementById("con-key").value;
       if (!/^https:\/\/script\.google(usercontent)?\.com\//.test(cu.trim())) { toast("La dirección debe empezar con https://script.google.com/"); break; }
       if (!ck.trim()) { toast("Falta la clave."); break; }
-      connect(cu, ck, S.me || "pablo"); render(); break;
+      connect(cu, ck, null); render(); break;
     case "discon": ui.confirm = null; disconnect(); break;
     case "link-pau":
       var lk = location.origin + location.pathname + "#c=" + btoa(unescape(encodeURIComponent(JSON.stringify({ u: conn.url, k: conn.key, p: "pau" })))), lb = document.getElementById("link-box");
