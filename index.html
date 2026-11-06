@@ -84,6 +84,17 @@ button{cursor:pointer}
 .dt span{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
 .dt.late{background:var(--warn-soft);color:var(--warn)}
 .dt.done{background:var(--ok-soft);color:var(--ok)}
+.liq-row{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:8px 0;background:none;border:0;border-top:1px solid var(--line-soft);text-align:left;color:inherit;font:inherit}
+.liq-row .grow{flex:1;min-width:0}
+.liq-row .t{font-weight:700}
+.liq-row .d{font-size:13px;color:var(--muted)}
+.liq-row .amt{font-weight:700;text-align:right;white-space:nowrap}
+.liq-row .amt small{display:block;font-weight:400;font-size:12.5px;color:var(--muted)}
+.liq-row .go{font-size:13.5px;font-weight:700;color:var(--accent);white-space:nowrap}
+.liq-x{border-top:1px solid var(--line-soft);padding:4px 0 12px}
+.liq-x .how{background:none;border:0;padding:8px 0 0;color:var(--accent);font-weight:700;font-size:14px;min-height:40px}
+.tot-line{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin:4px 2px 0}
+.mov.virt{background:var(--sunken)}
 .icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
 .icon-btn svg,.ic{width:22px;height:22px;flex:none}
 
@@ -374,23 +385,27 @@ var CATS = {
 var CAT_ORDER = ["super", "feria", "hogar", "comp", "danko", "carmen"];
 var SUBS = { arriendo: "Arriendo", ggcc: "Gastos comunes", luz: "Luz", gas: "Gas", internet: "Internet", streaming: "Streaming", otro: "Otra cuenta" };
 var SUB_ORDER = ["arriendo", "ggcc", "luz", "gas", "internet", "streaming", "otro"];
-var COMP_T = { salida: "Salida", extra: "Otros" };
+var COMP_T = { salida: "Salida", extra: "Compra compartida" };
 var TILES = [
-  { k: "super", cat: "super", n: "Supermercado", i: "cart", w: 3 },
-  { k: "feria", cat: "feria", n: "Feria", i: "apple", w: 3 },
-  { k: "hogar", cat: "hogar", n: "Cuenta del hogar", i: "receipt", w: 2 },
-  { k: "salida", cat: "comp", tipo: "salida", n: "Salida", i: "people", w: 2 },
-  { k: "otros", cat: "comp", tipo: "extra", n: "Otros", i: "bag", w: 2 },
-  { k: "danko", cat: "danko", n: "Danko", i: "paw", w: 3 },
-  { k: "carmen", cat: "carmen", n: "Carmen", i: "person", w: 3 }
+  { k: "super", cat: "super", n: "Supermercado", i: "cart", w: 3, g: "hogar" },
+  { k: "feria", cat: "feria", n: "Feria", i: "apple", w: 3, g: "hogar" },
+  { k: "hogar", cat: "hogar", n: "Cuenta del hogar", i: "receipt", w: 2, g: "hogar" },
+  { k: "salida", cat: "comp", tipo: "salida", n: "Salida", i: "people", w: 2, g: "finde" },
+  { k: "otros", cat: "comp", tipo: "extra", n: "Compra compartida", i: "bag", w: 2, g: "finde" },
+  { k: "danko", cat: "danko", n: "Danko", i: "paw", w: 3, g: "danko" },
+  { k: "carmen", cat: "carmen", n: "Carmen", i: "person", w: 3, g: "hogar" }
 ];
 function tileBy(k){ for (var i = 0; i < TILES.length; i++) if (TILES[i].k === k) return TILES[i]; return TILES[0]; }
+var GROUPS = { hogar: "Hogar", danko: "Danko", finde: "Finde" };
+var GFIRST = { hogar: "super", danko: "danko", finde: "salida" };
+function groupOf(cat){ return cat === "danko" ? "danko" : cat === "comp" ? "finde" : "hogar"; }
+function pendGroup(k){ return k.indexOf("danko") === 0 ? "danko" : k.indexOf("semana") === 0 ? "finde" : "hogar"; }
 var CARMEN_T = { visita: "Visita", cotiz: "Cotizaciones" };
 
 /* ---------- Estado ---------- */
 var KEY = "hogar-datos-v3";
 var S = null;
-var ui = { histCat: "todo", histRange: "actual", view: "inicio", movMonth: mk(TODAY), movFilter: "todo", numTab: "mes", numMonth: mk(TODAY), sel: {}, confirm: null, edit: null, toast: null, bannerHidden: false };
+var ui = { histCat: "todo", histRange: "actual", view: "hogar", mm: { hogar: mk(TODAY), finde: mk(TODAY), danko: null }, mf: { hogar: "todo", finde: "todo", danko: "todo" }, liqOpen: {}, movMonth: mk(TODAY), movFilter: "todo", numTab: "mes", numMonth: mk(TODAY), sel: {}, confirm: null, edit: null, toast: null, bannerHidden: false };
 
 function baseConfig(){
   return {
@@ -592,7 +607,7 @@ function movTitle(x){
   if (x.cat === "comp") return x.nota || COMP_T[x.tipo] || "Compartido";
   if (x.cat === "carmen") return CARMEN_T[x.tipo] ? (x.tipo === "visita" ? "Carmen: visita" : "Carmen: cotizaciones") : "Carmen";
   if (x.cat === "danko") return x.nota || "Danko";
-  return x.nota || CATS[x.cat].n;
+  return x.nota || (CATS[x.cat] ? CATS[x.cat].n : "Gasto");
 }
 
 /* Hogar del mes: se liquida del 2 al 5 */
@@ -755,7 +770,7 @@ var INFO = {
       isec("Qué muestra", ip("Cuánto llevan gastado en supermercado y feria esta semana, de " + dDay(ws) + " a " + dDay(f.we) + ", y cuánto queda del presupuesto semanal.")) +
       isec("Cómo se calcula", kv("Presupuesto supermercado", fmt(S.config.food.super)) + kv("Presupuesto feria", fmt(S.config.food.feria)) + kv("Presupuesto de la semana", fmt(f.pres), true) + kv("Gastado en supermercado", minus(f.su)) + kv("Gastado en feria", minus(f.fe)) + kv(left >= 0 ? "Queda" : "Sobre el presupuesto", fmt(Math.abs(left)), true) + kv("Para cada día que queda (" + dLeft + ", contando hoy)", fmt(Math.max(0, left) / dLeft))) +
       isec("Compras de la semana", mlist(items, "Todavía no hay compras esta semana.")) +
-      isec("Qué incluye", ip("Todas las compras de supermercado y feria, pagadas con la cuenta familiar o por uno de ustedes. Si las paga uno con su plata, la cuenta familiar se lo devuelve: aparece en Liquidar, en «Reembolsos de la cuenta familiar».") + ip("No incluye salidas a comer ni compras para la casa, que van en «Salida» y «Otros». El presupuesto es una referencia para organizarse y se cambia en Ajustes.")) };
+      isec("Qué incluye", ip("Todas las compras de supermercado y feria, pagadas con la cuenta familiar o por uno de ustedes. Si las paga uno con su plata, la cuenta familiar se lo devuelve: aparece en Hogar › Por liquidar, en «Reembolsos de la cuenta familiar».") + ip("No incluye salidas a comer ni compras para la casa, que van en «Salida» y «Otros». El presupuesto es una referencia para organizarse y se cambia en Ajustes.")) };
   },
   pend: function(){
     var p = pendientes();
@@ -776,7 +791,7 @@ var INFO = {
     return { t: "Cuentas de " + monthName(m), h:
       isec("Qué muestra", ip("Las cuentas del hogar que se pagan en " + monthName(m) + ": el arriendo de este mes y las boletas que llegan este mes, que corresponden al consumo del mes anterior.")) +
       isec("Detalle", rows) +
-      isec("Cómo entran en las cuentas", ip("Lo que paga cada uno se descuenta de su aporte del mes: Pablo " + fmt(ap.pablo) + " y Pau " + fmt(ap.pau) + ".") + ip(liq ? "El hogar de " + monthName(m) + " se liquidó el " + dShort(liq.fecha) + ". Las cuentas que se paguen ahora se reembolsan completas desde la cuenta familiar a quien las pagó." : "Se liquidan juntas del 2 al 5 del mes, en Liquidar.") + ip("«Monto fijo» se repite cada mes y se marca con el botón Pagado. «Con boleta» se anota cuando llega. Los montos fijos se cambian en Ajustes.")) };
+      isec("Cómo entran en las cuentas", ip("Lo que paga cada uno se descuenta de su aporte del mes: Pablo " + fmt(ap.pablo) + " y Pau " + fmt(ap.pau) + ".") + ip(liq ? "El hogar de " + monthName(m) + " se liquidó el " + dShort(liq.fecha) + ". Las cuentas que se paguen ahora se reembolsan completas desde la cuenta familiar a quien las pagó." : "Se liquidan juntas del 2 al 5 del mes, en Hogar › Por liquidar.") + ip("«Monto fijo» se repite cada mes y se marca con el botón Pagado. «Con boleta» se anota cuando llega. Los montos fijos se cambian en Ajustes.")) };
   },
   cf: function(){
     var c = S.config.cf, desde = c.fecha || "2026-10-01", dep = 0, rem = 0, aj = 0;
@@ -1028,7 +1043,7 @@ function presCard(m){
   ["arriendo", "ggcc", "luz", "gas", "internet", "streaming"].forEach(function(sub){ hog += sum(list.filter(function(x){ return x.cat === "hogar" && x.sub === sub; }), function(x){ return x.monto; }); hogRef += presSub(sub, m); });
   var otr = sum(list.filter(function(x){ return (x.cat === "hogar" && x.sub === "otro") || (x.cat === "comp" && x.paga === "cf"); }), function(x){ return x.monto; }), otrRef = presSub("otro", m);
   var ap = aporte(m), proj = Math.max(food, foodRef) + Math.max(hog, hogRef) + Math.max(otr, otrRef), queda = ap.total - proj;
-  var h = '<section class="card" data-info="num-hogar:' + m + '"><div class="card-h"><h2>Presupuesto de ' + monthName(m) + '</h2><a class="link" href="#numeros">Detalle</a></div><p class="sub">Lo gastado en el mes; la raya marca la referencia.</p>';
+  var h = '<section class="card" data-info="num-hogar:' + m + '"><div class="card-h"><h2>Presupuesto de ' + monthName(m) + '</h2><a class="link" href="#estadisticas">Detalle</a></div><p class="sub">Lo gastado en el mes; la raya marca la referencia.</p>';
   h += bullet("Alimentación", food, foodRef, "supermercado y feria") + bullet("Cuentas del hogar", hog, hogRef, "arriendo y boletas") + bullet("Otros con la cuenta familiar", otr, otrRef, "");
   h += '<p class="note">Aportes de ' + monthName(m) + ": " + fmt(ap.total) + ". Si lo que falta del mes sigue la referencia, " + (queda >= 0 ? "sobrarían <b>" + fmt(queda) + "</b>." : "faltarían <b>" + fmt(-queda) + "</b>.") + "</p></section>";
   return h;
@@ -1074,6 +1089,189 @@ function agendaCard(m){
   if (liq && pend.some(function(x){ return x.sort === due; })) h += '<p class="sub" style="margin:0 0 6px">El hogar de ' + monthName(m) + " ya se liquidó: lo que se pague ahora lo devuelve la cuenta familiar a quien lo pagó.</p>";
   h += pend.length ? pend.map(function(x){ return x.html; }).join("") : '<div class="row"><span style="color:var(--ok)">' + icon("check") + '</span><div class="grow"><div class="t">Todo pagado y anotado</div></div></div>';
   if (done.length) h += '<p class="grp">Ya pagado</p>' + done.map(function(x){ return x.html; }).join("");
+  return h + "</section>";
+}
+/* ===== Grupos: Hogar, Danko y Finde ===== */
+function banners(){
+  if (!conn) return '<div class="banner">' + icon("info") + '<div><b>Este celular todavía no está conectado a la planilla compartida.</b> Lo que anoten queda solo aquí. <button type="button" class="btn small quiet" style="margin-top:8px" data-act="go" data-v="ajustes-con">Conectar</button></div></div>';
+  if (syncErr) return '<div class="banner warnb">' + icon("info") + "<div>" + esc(syncErr) + '</div><button type="button" class="btn small quiet" data-act="sync-now">Reintentar</button></div>';
+  return "";
+}
+/* Detalle de cada liquidación pendiente (se despliega dentro de su grupo) */
+function liqBody(k){
+  var h = "", m, infoK;
+  if (k.indexOf("hogar-") === 0) {
+    m = k.slice(6); infoK = "liq-hogar:" + m;
+    var hc = hogarCalc(m);
+    if (!hc.listo) return '<p class="sub">Cuando Pablo pague el arriendo, anótenlo y aquí aparece cuánto le transfiere Pau.</p><div class="btns" style="margin-top:12px"><button class="btn sec" data-act="add" data-cat="hogar" data-sub="arriendo">Anotar arriendo</button><button class="btn sec" data-act="add" data-cat="hogar" data-sub="ggcc">Anotar gastos comunes</button></div>';
+    h += '<div class="lines">';
+    hc.items.forEach(function(x){ h += '<div class="line"><span>' + SUBS[x.sub] + ' <span class="q">· ' + NAME[x.paga] + "</span></span><span>" + fmt(x.monto) + "</span></div>"; });
+    if (!hc.have.ggcc) h += '<div class="line"><span>Gastos comunes <span class="q">· ' + NAME[S.config.payer.ggcc] + '</span></span><span class="pill warn">por llegar</span></div>';
+    var faltaFija = [];
+    ["internet", "streaming"].forEach(function(sub){ if (!hc.have[sub] && S.config.payer[sub] !== "cf") { faltaFija.push(SUBS[sub].toLowerCase()); h += '<div class="line" style="align-items:center"><span>' + SUBS[sub] + ' <span class="q">· ' + NAME[S.config.payer[sub]] + " · " + fmt(recAmount(sub, m + "-28")) + '</span></span><button type="button" class="btn small sec" data-act="quick" data-sub="' + sub + '" data-m="' + m + '">Pagado</button></div>'; } });
+    h += '<div class="line"><span>Aporte de Pablo</span><span>' + fmt(hc.ap.pablo) + '</span></div><div class="line"><span>Aporte de Pau</span><span>' + fmt(hc.ap.pau) + "</span></div></div>";
+    h += resultLine(hc.r.pauAPablo - hc.r.pabloAPau);
+    h += '<div class="line" style="border-top:0;padding-top:4px"><span>' + (hc.r.pauACF ? "Pau deposita en la cuenta familiar" : "Pablo deposita en la cuenta familiar") + '</span><b class="num">' + fmt(hc.r.pauACF || hc.r.pabloACF) + "</b></div>";
+    if (!hc.have.ggcc) h += '<p class="note">Faltan los gastos comunes: cuando los anoten, sube lo que Pau transfiere y baja su depósito.</p>';
+    if (faltaFija.length) h += '<p class="note">Falta marcar ' + faltaFija.join(" y ") + ". Si se paga después de liquidar, la cuenta familiar lo devuelve.</p>";
+    h += confirmBlock("hogar-" + m, "Registrar las transferencias", "¿Ya hicieron las dos transferencias del hogar de " + monthName(m) + "?", "liq-hogar", m);
+  } else if (k === "reemb") {
+    infoK = "liq-reemb";
+    var re = reembItems(), a = sum(re.filter(function(x){ return x.paga === "pablo"; }), function(x){ return x.monto; }), b = sum(re.filter(function(x){ return x.paga === "pau"; }), function(x){ return x.monto; });
+    h += '<p class="sub">Compras o cuentas que alguien pagó con su plata y que corresponden a la cuenta familiar.</p>';
+    re.forEach(function(x){ h += '<div class="line"><span>' + esc(movTitle(x)) + ' <span class="q">· ' + NAME[x.paga] + " · " + dShort(x.fecha) + "</span></span><span>" + fmt(x.monto) + "</span></div>"; });
+    if (a) h += resultLine(a, "La cuenta familiar le devuelve a Pablo");
+    if (b) h += resultLine(b, "La cuenta familiar le devuelve a Pau");
+    h += confirmBlock("reemb", "Registrar reembolso", "¿Ya salió el reembolso desde la cuenta familiar?", "liq-reemb", "x");
+  } else if (k.indexOf("carmen-") === 0) {
+    m = k.slice(7); infoK = "liq-carmen:" + m;
+    var c = carmenCalc(m);
+    c.items.forEach(function(x){ h += '<div class="line"><span>' + (x.tipo === "visita" ? "Visita" : "Cotizaciones") + ' <span class="q">· ' + NAME[x.paga] + " · " + dShort(x.fecha) + "</span></span><span>" + fmt(x.monto) + "</span></div>"; });
+    h += '<div class="line"><span>Total · a cada uno le toca</span><span>' + fmt(c.total) + " · " + fmt(c.total / 2) + "</span></div>" + resultLine(c.r) + confirmBlock("carmen-" + m, "Registrar liquidación", "¿Ya liquidaron Carmen de " + monthName(m) + "?", "liq-carmen", m);
+  } else if (k.indexOf("semana-") === 0) {
+    var w = k.slice(7), sm = semanaCalc(w); infoK = "liq-semana:" + w;
+    sm.all.forEach(function(x){
+      var o = x.paga === "cf" ? "cuenta familiar" : NAME[other(x.paga)] + " debe " + fmt(x.partes ? x.partes[other(x.paga)] : x.monto / 2);
+      h += '<div class="line"><span>' + esc(movTitle(x)) + ' <span class="q">· pagó ' + NAME[x.paga] + " · " + o + "</span></span><span>" + fmt(x.monto) + "</span></div>";
+    });
+    if (!sm.all.length) h += '<p class="sub">Nada anotado esta semana.</p>';
+    else h += resultLine(sm.r) + confirmBlock("semana-" + w, "Registrar liquidación", "¿Ya liquidaron la semana?", "liq-semana", w);
+  } else if (k.indexOf("danko-") === 0) {
+    var e = k.slice(6), dk = dankoCalc(e); infoK = "liq-danko:" + e;
+    dk.items.forEach(function(x){ h += '<div class="line"><span>' + esc(x.nota || "Danko") + ' <span class="q">· ' + NAME[x.paga] + " · " + dShort(x.fecha) + "</span></span><span>" + fmt(x.monto) + "</span></div>"; });
+    h += '<div class="line"><span>Total · a cada uno le toca</span><span>' + fmt(dk.total) + " · " + fmt(dk.total / 2) + "</span></div>" + resultLine(dk.r);
+    if (!dk.liq) h += confirmBlock("danko-" + e, dk.enCurso ? "Liquidar ahora" : "Registrar liquidación", "¿Ya liquidaron Danko del " + dShort(dk.st) + " al " + dShort(e) + "?", "liq-danko", e);
+  }
+  return h + '<button type="button" class="how" data-act="info" data-v="' + infoK + '">Cómo se calcula</button>';
+}
+function liqItemRow(x, g, open){
+  return '<button type="button" class="liq-row" data-act="liq-open" data-v="' + x.k + '" aria-expanded="' + open + '"><div class="grow"><div class="t">' + esc(x.t) + '</div><div class="d">' + esc(x.d) + '</div></div><div class="amt num">' + (x.r == null ? (x.txt ? '<span style="font-size:14px">' + esc(x.txt) + "</span>" : '<span class="pill warn">Falta</span>') : fmt(Math.abs(x.r)) + "<small>" + dirShort(x.r) + "</small>") + '</div><span class="go">' + (open ? "Cerrar" : "Liquidar") + "</span></button>" +
+    (open ? '<div class="liq liq-x" id="liq-' + x.k + '">' + liqBody(x.k) + "</div>" : "");
+}
+function liqCard(g, items, title){
+  var open = ui.liqOpen[g];
+  if (open === undefined && items.length === 1) open = items[0].k;
+  var nums = items.filter(function(x){ return typeof x.r === "number"; }), net = sum(nums, function(x){ return x.r; });
+  var h = '<section class="card tight"><div class="card-h"><h2>' + (title || "Por liquidar") + "</h2></div>";
+  if (nums.length > 1) h += '<div class="net"><span class="sub" style="margin:0">' + (net > 0 ? "En total, Pau le debe a Pablo" : net < 0 ? "En total, Pablo le debe a Pau" : "En total quedan a mano") + '</span><b class="num">' + fmt(Math.abs(net)) + "</b></div>";
+  items.forEach(function(x){ h += liqItemRow(x, g, open === x.k); });
+  return h + "</section>";
+}
+function movRow(x){
+  var c = x.cat === "comp" && x.tipo === "extra" ? { i: "bag", cls: "" } : CATS[x.cat] || { i: "receipt", cls: "" }, part = x.cat === "comp" && x.partes ? "Pablo " + fmt(x.partes.pablo) + " · Pau " + fmt(x.partes.pau) : "";
+  var inner = '<span class="ico ' + c.cls + '">' + icon(c.i) + '</span><span class="grow"><span class="t">' + esc(movTitle(x)) + '</span><span class="d">' + (x.cat === "comp" ? COMP_T[x.tipo] + " · " : "") + (x.virtual ? "Pagó " + NAME[x.paga] + " · automático" : "Pagó " + NAME[x.paga]) + (part ? " · " + part : "") + (x.liqId ? " · liquidado" : "") + '</span></span><span class="amt num">' + fmt(x.monto) + "</span>";
+  return x.virtual ? '<div class="mov virt">' + inner + "</div>" : '<button type="button" class="mov" data-act="edit" data-v="' + x.id + '">' + inner + "</button>";
+}
+function movDays(list){
+  var h = "", day = null;
+  list.sort(function(a, b){ return a.fecha < b.fecha ? 1 : a.fecha > b.fecha ? -1 : 0; }).forEach(function(x){
+    if (x.fecha !== day) { if (day) h += "</div>"; day = x.fecha; h += '<p class="day-h">' + cap(dLong(day)) + "</p><div>"; }
+    h += movRow(x);
+  });
+  return day ? h + "</div>" : h;
+}
+var MF = { hogar: [["todo", "Todo"], ["alim", "Alimentación"], ["hogar", "Cuentas"], ["carmen", "Carmen"], ["liq", "Liquidaciones"]], finde: [["todo", "Todo"], ["salida", "Salidas"], ["extra", "Compras compartidas"], ["liq", "Liquidaciones"]], danko: [["todo", "Gastos"], ["liq", "Liquidaciones"]] };
+var LIQ_G = { hogar: ["hogar", "reemb", "carmen", "ajuste"], danko: ["danko"], finde: ["semana"] };
+function movSection(g){
+  var f = ui.mf[g] || "todo", h = '<p class="sec-l">Movimientos</p>', list, label, liqs;
+  if (g === "danko") {
+    var e = ui.mm.danko || dankoEnd(TODAY), dk = dankoCalc(e);
+    label = dShort(dk.st) + " al " + dShort(e);
+    list = movsIn(dk.st, e, "danko").concat(dk.items.filter(function(x){ return x.virtual; }));
+    liqs = S.liqs.filter(function(l){ return l.tipo === "danko" && l.clave === e; });
+  } else {
+    var m = ui.mm[g];
+    label = monthLabel(m);
+    list = S.movs.filter(function(x){ return mk(x.fecha) === m && groupOf(x.cat) === g; });
+    liqs = S.liqs.filter(function(l){ return mk(l.fecha) === m && LIQ_G[g].indexOf(l.tipo) >= 0; });
+  }
+  h += '<div class="monthnav"><button type="button" data-act="mm" data-g="' + g + '" data-v="-1" aria-label="Anterior">' + icon("left") + "</button><b>" + label + '</b><button type="button" data-act="mm" data-g="' + g + '" data-v="1" aria-label="Siguiente">' + icon("right") + "</button></div>";
+  h += '<div class="filters" role="group" aria-label="Filtrar">' + MF[g].map(function(x){ return '<button type="button" class="chipb" aria-pressed="' + (f === x[0]) + '" data-act="mf" data-g="' + g + '" data-v="' + x[0] + '">' + x[1] + "</button>"; }).join("") + "</div>";
+  if (f === "liq") {
+    liqs.sort(function(a, b){ return a.fecha < b.fecha ? 1 : -1; });
+    return h + (liqs.length ? '<section class="card tight">' + liqs.map(liqRow).join("") + "</section>" : '<p class="note">No hay liquidaciones registradas en este período.</p>');
+  }
+  if (f !== "todo") list = list.filter(function(x){ return f === "alim" ? (x.cat === "super" || x.cat === "feria") : g === "finde" ? x.tipo === f : x.cat === f; });
+  h += '<div class="tot-line"><span>' + list.length + (list.length === 1 ? " movimiento" : " movimientos") + '</span><b class="num">' + fmt(sum(list, function(x){ return x.monto; })) + "</b></div>";
+  if (!list.length) return h + '<div class="card"><p class="sub">Nada anotado en este período.</p><div style="margin-top:12px"><button class="btn sec" data-act="add">Anotar gasto</button></div></div>';
+  return h + movDays(list);
+}
+
+/* Hogar */
+function viewHogar(){
+  var m = mk(TODAY), h = topBar("Hogar", cap(dLong(TODAY)));
+  h += '<div class="stack">';
+  if (!S.meAsked) h += meCard();
+  h += banners();
+  h += '<p class="sec-l">Disponible y presupuesto</p>' + cfCard(m) + foodHero(m);
+  var p = pendientes().filter(function(x){ return pendGroup(x.k) === "hogar"; });
+  h += '<p class="sec-l">Entre ustedes y la cuenta familiar</p>';
+  h += p.length ? liqCard("hogar", p) : '<section class="card"><div class="row" style="border:0"><span style="color:var(--ok)">' + icon("check") + '</span><div class="grow"><div class="t">Están al día</div><div class="d">Lo próximo: el hogar de ' + monthName(liqFind("hogar", m) ? addMonths(m, 1) : m) + ", del 2 al 5.</div></div></div></section>";
+  h += '<p class="sec-l">Cuentas del mes</p>' + agendaCard(m) + presCard(m);
+  h += movSection("hogar");
+  return h + "</div>";
+}
+
+/* Danko */
+function viewDanko(){
+  var ce = dankoEnd(TODAY), dk = dankoCalc(ce), h = topBar("Danko", "Mitad y mitad · corte el " + S.config.corte);
+  h += '<div class="stack">' + banners();
+  var past = pendientes().filter(function(x){ return x.danko && !x.cur; });
+  if (past.length) h += '<p class="sec-l">Atrasado</p>' + liqCard("danko", past, "Períodos por liquidar");
+  var days = Math.round((parse(ce) - parse(TODAY)) / 864e5);
+  var prev = [], e = dankoEnd(addDays(dk.st, -1));
+  for (var i = 0; i < 6 && dankoStart(e) >= "2026-02-20"; i++) { prev.push(dankoCalc(e).total); e = dankoEnd(addDays(dankoStart(e), -1)); }
+  var avg = prev.length ? sum(prev) / prev.length : 0;
+  h += '<p class="sec-l">Período en curso</p><section class="card" data-info="liq-danko:' + ce + '"><div class="card-h"><h2>' + dShort(dk.st) + " al " + dShort(ce) + '</h2><span class="pill danko">' + (days === 0 ? "cierra hoy" : "cierra en " + days + (days === 1 ? " día" : " días")) + "</span></div>";
+  h += '<div class="net"><span class="sub" style="margin:0">' + (dk.liq ? "Ya liquidado" : dk.r > 0 ? "Si se cerrara hoy, Pau le pasa a Pablo" : dk.r < 0 ? "Si se cerrara hoy, Pablo le pasa a Pau" : "Por ahora quedan a mano") + '</span><b class="num">' + fmt(Math.abs(dk.r)) + "</b></div>";
+  h += '<div class="mini3"><div><span>Gastado</span><b class="num">' + fmt(dk.total) + '</b></div><div><span>Pagó Pablo</span><b class="num">' + fmt(dk.pPablo) + '</b></div><div><span>Pagó Pau</span><b class="num">' + fmt(dk.pPau) + "</b></div></div>";
+  if (avg) h += '<p class="note">Promedio de los últimos ' + prev.length + " períodos: <b>" + fmt(avg) + "</b>. " + (dk.total > avg ? "Este período va " + fmt(dk.total - avg) + " sobre el promedio." : "Quedan " + fmt(avg - dk.total) + " para llegar al promedio.") + "</p>";
+  var k = "danko-" + ce, open = ui.liqOpen.danko === k;
+  if (!dk.liq && dk.items.length) h += '<div style="margin-top:8px">' + liqItemRow({ k: k, t: "Detalle y liquidación", d: "Se liquida el " + dShort(ce) + "; se puede adelantar", r: dk.r }, "danko", open).replace('class="liq-row"', 'class="liq-row" style="border-top:1px solid var(--line-soft)"') + "</div>";
+  h += '<div class="btns" style="margin-top:12px"><button type="button" class="btn sec" data-act="add" data-cat="danko">Anotar gasto de Danko</button></div></section>';
+  if (!ui.mm.danko) ui.mm.danko = ce;
+  h += movSection("danko");
+  return h + "</div>";
+}
+
+/* Finde: salidas y compras compartidas, se liquida el domingo */
+function viewFinde(){
+  var ws = weekStart(TODAY), sm = semanaCalc(ws), m = mk(TODAY), h = topBar("Finde", "Se liquida cada domingo");
+  h += '<div class="stack">' + banners();
+  var past = pendientes().filter(function(x){ return pendGroup(x.k) === "finde" && x.k !== "semana-" + ws; });
+  if (past.length) h += '<p class="sec-l">Atrasado</p>' + liqCard("finde", past, "Semanas por liquidar");
+  var tot = sum(sm.all, function(x){ return x.monto; });
+  var pa = sum(sm.all, function(x){ return x.paga === "cf" ? x.monto / 2 : x.partes ? x.partes.pablo : x.monto / 2; }), pu = tot - pa;
+  var weeks = [], w = addDays(ws, -7);
+  for (var i = 0; i < 8 && w >= weekStart("2026-10-01"); i++) { weeks.push(sum(semanaCalc(w).all, function(x){ return x.monto; })); w = addDays(w, -7); }
+  var avg = weeks.length ? sum(weeks) / weeks.length : 0;
+  h += '<p class="sec-l">Esta semana</p><section class="card" data-info="liq-semana:' + ws + '"><div class="card-h"><h2>' + dShort(ws) + " al " + dShort(sm.we) + '</h2><span class="pill ' + (sm.liq ? "ok" : "info") + '">' + (sm.liq ? "liquidada" : "se liquida el " + dDay(sm.we)) + "</span></div>";
+  h += '<div class="net"><span class="sub" style="margin:0">' + (sm.liq ? "Ya liquidada" : sm.r > 0 ? "Pau le debe a Pablo" : sm.r < 0 ? "Pablo le debe a Pau" : "Por ahora quedan a mano") + '</span><b class="num">' + fmt(Math.abs(sm.r)) + "</b></div>";
+  h += '<div class="mini3"><div><span>Gastado</span><b class="num">' + fmt(tot) + '</b></div><div><span>Parte de Pablo</span><b class="num">' + fmt(pa) + '</b></div><div><span>Parte de Pau</span><b class="num">' + fmt(pu) + "</b></div></div>";
+  var mt = sum(S.movs.filter(function(x){ return x.cat === "comp" && mk(x.fecha) === m; }), function(x){ return x.monto; });
+  h += '<p class="note">En ' + monthName(m) + " llevan " + fmt(mt) + "." + (avg ? " Promedio por semana desde octubre: " + fmt(avg) + "." : "") + "</p>";
+  var k = "semana-" + ws, open = ui.liqOpen.finde === k || (ui.liqOpen.finde === undefined && !past.length);
+  if (!sm.liq && sm.items.length) h += '<div style="margin-top:8px">' + liqItemRow({ k: k, t: "Detalle y liquidación", d: "Cada uno paga su parte", r: sm.r }, "finde", open).replace('class="liq-row"', 'class="liq-row" style="border-top:1px solid var(--line-soft)"') + "</div>";
+  h += '<div class="btns" style="margin-top:12px"><button type="button" class="btn sec" data-act="add" data-cat="comp" data-tipo="salida">Anotar salida</button><button type="button" class="btn sec" data-act="add" data-cat="comp" data-tipo="extra">Compra compartida</button></div></section>';
+  h += movSection("finde");
+  return h + "</div>";
+}
+
+/* Estadísticas: resumen por grupo */
+function grupoMes(g, m){
+  if (g === "danko") return dankoMes(m);
+  if (g === "finde") return m < "2026-10" ? null : sum(S.movs.filter(function(x){ return x.cat === "comp" && mk(x.fecha) === m; }), function(x){ return x.monto; });
+  var hm2 = hogarMes(m); if (!hm2) return null;
+  return hm2.total + alimMes(m) + sum(S.movs.filter(function(x){ return x.cat === "carmen" && mk(x.fecha) === m; }), function(x){ return x.monto; });
+}
+function grupoCard(m){
+  var h = '<section class="card tight"><div class="card-h"><h2>' + cap(monthName(m)) + ' por grupo</h2></div><p class="sub">Gasto del mes y promedio de los 6 meses anteriores con datos.</p>';
+  [["hogar", "Hogar", "home", "cuentas, alimentación y Carmen"], ["danko", "Danko", "paw", "todo, incluido el seguro"], ["finde", "Finde", "people", "salidas y compras compartidas"]].forEach(function(g){
+    var v = grupoMes(g[0], m) || 0, prev = [];
+    for (var k = 1; k <= 12 && prev.length < 6; k++) { var pv = grupoMes(g[0], addMonths(m, -k)); if (pv) prev.push(pv); }
+    var avg = prev.length ? sum(prev) / prev.length : 0;
+    h += '<div class="row"><span class="ico' + (g[0] === "danko" ? " danko" : "") + '" style="color:var(--ink-2)">' + icon(g[2]) + '</span><div class="grow"><div class="t">' + g[1] + '</div><div class="d">' + g[3] + (avg ? " · promedio " + fmt(avg) : "") + '</div></div><div class="amt num">' + fmt(v) + (avg ? "<small>" + (v > avg ? "+" + fmt(v - avg) : "−" + fmt(avg - v).replace("−", "")) + " vs. promedio</small>" : "") + "</div></div>";
+  });
   return h + "</section>";
 }
 function foodSplit(n, v, p){
@@ -1236,9 +1434,9 @@ function viewLiquidar(){
 
 /* Números */
 function viewNumeros(){
-  var h = topBar("Números", "Gastos, presupuesto e historial");
+  var h = topBar("Estadísticas", "Resúmenes, promedios e historial");
   h += '<div class="stack"><div class="tabs2" role="group" aria-label="Vista"><button type="button" aria-pressed="' + (ui.numTab === "mes") + '" data-act="num-tab" data-v="mes">Este mes</button><button type="button" aria-pressed="' + (ui.numTab === "hist") + '" data-act="num-tab" data-v="hist">Historial</button></div>';
-  h += ui.numTab === "mes" ? numMes() : numHist();
+  h += ui.numTab === "mes" ? grupoCard(ui.numMonth) + numMes() : numHist();
   return h + "</div>";
 }
 function bullet(label, v, p, note){
@@ -1449,7 +1647,7 @@ function viewAjustes(){
     moneyField("pr-super", "Supermercado por semana", S.config.food.super) + moneyField("pr-feria", "Feria por semana", S.config.food.feria) +
     moneyField("pr-gg0", "Gastos comunes", pr.ggcc[0]) + moneyField("pr-gg1", "Gastos comunes, invierno", pr.ggcc[1]) +
     moneyField("pr-luz0", "Luz", pr.luz[0]) + moneyField("pr-luz1", "Luz, invierno", pr.luz[1]) +
-    moneyField("pr-gas0", "Gas", pr.gas[0]) + moneyField("pr-gas1", "Gas, invierno", pr.gas[1]) +
+    moneyField("pr-gas0", "Gas", pr.gas[0]) + moneyField("pr-gas1", "Gas, invierno", pr.gas[1]) + moneyField("pr-otro", "Otros con la cuenta familiar, al mes", pr.otro) +
     '</div><div style="margin-top:12px"><button type="button" class="btn block" data-act="pres-save">Guardar presupuestos</button></div></section>';
   /* Cuenta familiar */
   h += '<section class="card" id="cf"><h2>Saldo de la cuenta familiar · ' + esc(S.config.cf.banco) + '</h2><p class="sub">Escriban el saldo que muestra el banco. La app registra la diferencia como ajuste y desde ahí sigue calculando.</p><div class="field" style="margin-top:12px"><label for="cf-saldo">Saldo real hoy</label><input id="cf-saldo" class="input num" inputmode="numeric" data-money="1" placeholder="' + grp(Math.max(0, cfSaldo())) + '"></div><p class="hint">Estimado actual: ' + fmt(cfSaldo()) + '.</p><div style="margin-top:10px"><button type="button" class="btn block" data-act="cf-save">Guardar saldo</button></div></section>';
@@ -1490,9 +1688,11 @@ function renderSheet(focus){
   if (!F) return;
   var h = '<div class="sheet" data-act="sheet-bg"><div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheet-t">';
   h += '<div class="panel-h"><button type="button" class="icon-btn" data-act="sheet-close" aria-label="Cerrar" style="border:0">' + icon("close") + '</button><h2 id="sheet-t">' + (F.mode === "edit" ? "Editar gasto" : "Nuevo gasto") + "</h2></div>";
-  if (F.liq) h += '<p class="banner" style="margin:0">' + icon("info") + "<span>Este gasto ya está en una liquidación. Si cambias el monto, revisa esa liquidación en Liquidar.</span></p>";
+  if (F.liq) h += '<p class="banner" style="margin:0">' + icon("info") + "<span>Este gasto ya está en una liquidación. Si cambias el monto, revisa esa liquidación en su grupo.</span></p>";
   h += '<div class="amount"><label for="f-monto">Monto</label><input id="f-monto" inputmode="numeric" autocomplete="off" placeholder="$0" value="' + (F.monto ? "$" + grp(F.monto) : "") + '"></div>';
-  h += '<fieldset><legend>¿Qué fue?</legend><div class="cats">' + TILES.map(function(t){ var on = F.cat === t.cat && (!t.tipo || F.tipo === t.tipo); return '<button type="button" class="cat' + (t.w === 3 ? " w3" : "") + '" aria-pressed="' + on + '" data-act="f-cat" data-v="' + t.k + '">' + icon(t.i) + t.n + "</button>"; }).join("") + "</div></fieldset>";
+  var fg = groupOf(F.cat), gt = TILES.filter(function(t){ return t.g === fg; });
+  h += '<fieldset><legend>Grupo</legend><div class="seg">' + ["hogar", "danko", "finde"].map(function(g){ return '<button type="button" aria-pressed="' + (fg === g) + '" data-act="f-grp" data-v="' + g + '">' + GROUPS[g] + "</button>"; }).join("") + "</div></fieldset>";
+  if (gt.length > 1) h += '<fieldset><legend>¿Qué fue?</legend><div class="cats">' + gt.map(function(t){ var on = F.cat === t.cat && (!t.tipo || F.tipo === t.tipo); return '<button type="button" class="cat w3" aria-pressed="' + on + '" data-act="f-cat" data-v="' + t.k + '">' + icon(t.i) + t.n + "</button>"; }).join("") + "</div></fieldset>";
   if (F.cat === "hogar") h += '<fieldset><legend>¿Qué cuenta?</legend><div class="chips">' + SUB_ORDER.map(function(s){ return '<button type="button" class="chipb" aria-pressed="' + (F.sub === s) + '" data-act="f-sub" data-v="' + s + '">' + SUBS[s] + "</button>"; }).join("") + "</div></fieldset>";
   if (F.cat === "carmen") h += '<fieldset><legend>Tipo</legend><div class="chips">' + Object.keys(CARMEN_T).map(function(s){ return '<button type="button" class="chipb" aria-pressed="' + (F.tipo === s) + '" data-act="f-tipo" data-v="' + s + '">' + CARMEN_T[s] + " · " + fmt(recAmount(s, TODAY)) + "</button>"; }).join("") + "</div></fieldset>";
   var opts = F.cat === "carmen" ? ["pablo", "pau"] : ["cf", "pablo", "pau"];
@@ -1587,16 +1787,27 @@ function undoLiq(id){
 }
 
 /* ---------- Navegación y render ---------- */
-var VIEWS = ["inicio", "movimientos", "liquidar", "numeros", "ajustes"];
-function route(){ var h = (location.hash || "").replace("#", ""); ui.view = VIEWS.indexOf(h) >= 0 ? h : "inicio"; ui.confirm = null; ui.edit = null; render(); window.scrollTo(0, 0); }
+var VIEWS = ["hogar", "danko", "finde", "estadisticas", "ajustes"];
+var ALIAS = { inicio: "hogar", movimientos: "hogar", liquidar: "hogar", numeros: "estadisticas" };
+function route(){ var h = (location.hash || "").replace("#", ""); h = ALIAS[h] || h; ui.view = VIEWS.indexOf(h) >= 0 ? h : "hogar"; if (document.getElementById("sheet-root")) closeSheet(); ui.confirm = null; ui.edit = null; render(); window.scrollTo(0, 0); }
+function navCount(){
+  var pc = { hogar: 0, danko: 0, finde: 0 }, cur = mk(TODAY), late = +TODAY.slice(8, 10) >= 25;
+  pendientes().forEach(function(x){
+    if (x.cur) return;
+    if (x.k.indexOf("carmen-") === 0 && x.k.slice(7) === cur && !late) return;
+    if (x.r != null && Math.abs(x.r) > 0 || x.txt || x.r == null) pc[pendGroup(x.k)]++;
+  });
+  return pc;
+}
 function renderNav(){
-  var p = pendientes().filter(function(x){ return x.r != null && Math.abs(x.r) > 0 || x.txt; }).length;
-  var it = function(v, n, ic){ return '<a href="#' + v + '"' + (ui.view === v ? ' aria-current="page"' : "") + ">" + icon(ic) + "<span>" + n + "</span>" + (v === "liquidar" && p ? '<span class="badge">' + p + "</span>" : "") + "</a>"; };
-  document.getElementById("nav").innerHTML = '<div class="nav-in">' + it("inicio", "Inicio", "home") + it("movimientos", "Movimientos", "list") + '<button type="button" class="add" data-act="add" aria-label="Anotar gasto"><span class="plus">' + icon("plus") + "</span><span>Anotar</span></button>" + it("liquidar", "Liquidar", "swap") + it("numeros", "Números", "chart") + "</div>";
+  var pc = navCount();
+  var it = function(v, n, ic){ return '<a href="#' + v + '"' + (ui.view === v ? ' aria-current="page"' : "") + ">" + icon(ic) + "<span>" + n + "</span>" + (pc[v] ? '<span class="badge" aria-label="' + pc[v] + ' por liquidar">' + pc[v] + "</span>" : "") + "</a>"; };
+  var g = ui.view === "danko" || ui.view === "finde" ? ui.view : "hogar";
+  document.getElementById("nav").innerHTML = '<div class="nav-in">' + it("hogar", "Hogar", "home") + it("danko", "Danko", "paw") + '<button type="button" class="add" data-act="add" aria-label="Anotar gasto en ' + GROUPS[g] + '"><span class="plus">' + icon("plus") + "</span><span>Anotar</span></button>" + it("finde", "Finde", "people") + it("estadisticas", "Estadísticas", "chart") + "</div>";
 }
 function render(){
   var a = document.getElementById("app");
-  var html = ui.view === "movimientos" ? viewMovs() : ui.view === "liquidar" ? viewLiquidar() : ui.view === "numeros" ? viewNumeros() : ui.view === "ajustes" ? viewAjustes() : viewInicio();
+  var html = ui.view === "danko" ? viewDanko() : ui.view === "finde" ? viewFinde() : ui.view === "estadisticas" ? viewNumeros() : ui.view === "ajustes" ? viewAjustes() : viewHogar();
   a.innerHTML = html;
   renderNav();
 }
@@ -1637,9 +1848,10 @@ document.addEventListener("click", function(e){
   var act = el.getAttribute("data-act"), v = el.getAttribute("data-v");
   if (act === "sheet-bg") { if (e.target === el) closeSheet(); return; }
   switch (act) {
-    case "add": openSheet({ cat: el.getAttribute("data-cat") || (ui.view === "movimientos" && ["super","feria","hogar","comp","danko","carmen"].indexOf(ui.movFilter) >= 0 ? ui.movFilter : "super"), sub: el.getAttribute("data-sub") }); break;
+    case "add": var dc = el.getAttribute("data-cat"); if (!dc) dc = ui.view === "danko" ? "danko" : ui.view === "finde" ? "comp" : "super"; openSheet({ cat: dc, tipo: el.getAttribute("data-tipo"), sub: el.getAttribute("data-sub") }); break;
     case "edit": openSheet({ id: v }); break;
     case "sheet-close": closeSheet(); break;
+    case "f-grp": if (groupOf(F.cat) === v) break; v = GFIRST[v];
     case "f-cat": if (F.auto) { F.monto = 0; F.auto = false; } var tl = tileBy(v); F.cat = tl.cat; F.sub = null; F.tipo = tl.tipo || (tl.cat === "carmen" ? "visita" : null); F.paga = defaultPaga(tl.cat, null); F.err = ""; if (v === "carmen" && !F.monto) { F.monto = recAmount("visita", TODAY); F.auto = true; } renderSheet(); break;
     case "f-sub": F.sub = v; F.paga = defaultPaga("hogar", v); if (recById(v) && (!F.monto || F.auto)) { F.monto = recAmount(v, F.fecha); F.auto = true; } else if (F.auto) { F.monto = 0; F.auto = false; } F.err = ""; renderSheet(); break;
     case "f-tipo": F.tipo = v; if (F.cat === "carmen" && (!F.monto || F.auto)) { F.monto = recAmount(v, TODAY); F.auto = true; } renderSheet(); break;
@@ -1669,7 +1881,11 @@ document.addEventListener("click", function(e){
       try { navigator.clipboard.writeText(lk).then(function(){ lb.hidden = false; lb.value = lk; toast("Enlace copiado. Envíaselo a Pau por WhatsApp: al abrirlo en Chrome, su celular queda conectado."); }, showL); } catch (er) { showL(); }
       break;
     case "go": if (v === "ajustes-con") { location.hash = "ajustes"; setTimeout(function(){ var c = document.getElementById("con"); if (c) c.scrollIntoView(); }, 30); } else if (v === "ajustes-cf") { location.hash = "ajustes"; setTimeout(function(){ var c = document.getElementById("cf"); if (c) c.scrollIntoView(); }, 30); } else location.hash = v; break;
-    case "go-liq": e.preventDefault(); location.hash = "liquidar"; setTimeout(function(){ var c = document.getElementById("liq-" + v); if (c) c.scrollIntoView({ block: "start" }); }, 40); break;
+    case "go-liq": e.preventDefault(); var gv = pendGroup(v); ui.liqOpen[gv] = v; if (ui.view !== gv) location.hash = gv; else render(); setTimeout(function(){ var c = document.getElementById("liq-" + v); if (c) c.scrollIntoView({ block: "center" }); }, 150); break;
+    case "liq-open": var lg = pendGroup(v); ui.liqOpen[lg] = ui.liqOpen[lg] === v ? "" : v; ui.confirm = null; render(); setTimeout(function(){ var c = document.getElementById("liq-" + v); if (c && ui.liqOpen[lg]) c.scrollIntoView({ block: "nearest", behavior: "smooth" }); }, 30); break;
+    case "info": openInfo(v); break;
+    case "mm": var gg = el.getAttribute("data-g"); if (gg === "danko") ui.mm.danko = +v > 0 ? dankoEnd(addDays(ui.mm.danko || dankoEnd(TODAY), 1)) : dankoEnd(addDays(dankoStart(ui.mm.danko || dankoEnd(TODAY)), -1)); else ui.mm[gg] = addMonths(ui.mm[gg], +v); render(); break;
+    case "mf": ui.mf[el.getAttribute("data-g")] = v; render(); break;
     case "quick":
       var sub = el.getAttribute("data-sub"), m = el.getAttribute("data-m"), dt = mk(TODAY) === m ? TODAY : m + "-02";
       var nx = { id: uid(), fecha: dt, cat: "hogar", sub: sub, monto: recAmount(sub, dt), paga: S.config.payer[sub] };
@@ -1714,7 +1930,7 @@ document.addEventListener("click", function(e){
     case "pres-save":
       var g = function(id){ return digits(document.getElementById(id).value); };
       S.config.food.super = g("pr-super") || S.config.food.super; S.config.food.feria = g("pr-feria") || S.config.food.feria;
-      S.config.pres.ggcc = [g("pr-gg0"), g("pr-gg1")]; S.config.pres.luz = [g("pr-luz0"), g("pr-luz1")]; S.config.pres.gas = [g("pr-gas0"), g("pr-gas1")];
+      S.config.pres.ggcc = [g("pr-gg0"), g("pr-gg1")]; S.config.pres.luz = [g("pr-luz0"), g("pr-luz1")]; S.config.pres.gas = [g("pr-gas0"), g("pr-gas1")]; S.config.pres.otro = g("pr-otro");
       save(); render(); toast("Presupuestos guardados.");
       break;
     case "cf-save":
