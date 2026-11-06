@@ -371,7 +371,7 @@ function tileBy(k){ for (var i = 0; i < TILES.length; i++) if (TILES[i].k === k)
 var CARMEN_T = { visita: "Visita", cotiz: "Cotizaciones" };
 
 /* ---------- Estado ---------- */
-var KEY = "hogar-datos-v2";
+var KEY = "hogar-datos-v3";
 var S = null;
 var ui = { histCat: "todo", histRange: "actual", view: "inicio", movMonth: mk(TODAY), movFilter: "todo", numTab: "mes", numMonth: mk(TODAY), sel: {}, confirm: null, edit: null, toast: null, bannerHidden: false };
 
@@ -395,45 +395,11 @@ function baseConfig(){
   };
 }
 
+var SEED = {"movs":[{"fecha":"2026-02-01","cat":"danko","monto":4350,"paga":"pablo","nota":"Desparasitante Externo Bravecti","id":"m001"},{"fecha":"2026-02-01","cat":"danko","monto":17000,"paga":"pau","nota":"Seguro Cactus","id":"m002"},{"fecha":"2026-02-03","cat":"danko","monto":11990,"paga":"pablo","nota":"Correa África 3 mts Negra","id":"m003"},{"fecha":"2026-02-08","cat":"danko","monto":61380,"paga":"pablo","nota":"Comida Bravery 12 kg, lata y premios","id":"m004"},{"fecha":"2026-03-01","cat":"danko","monto":9770,"paga":"pablo","nota":"Premios y latas Razas Pet","id":"m005"},{"fecha":"2026-03-07","cat":"danko","monto":14423,"paga":"pau","nota":"Seguro Cactus","id":"m006"},{"fecha":"2026-03-07","cat":"danko","monto":6980,"paga":"pau","nota":"Snack dentales y premios","id":"m007"},{"fecha":"2026-03-15","cat":"danko","monto":10790,"paga":"pablo","nota":"Regalo Peluche Kong Floppy","id":"m008"},{"fecha":"2026-03-15","cat":"danko","monto":2500,"paga":"pablo","nota":"Pastillas desparasitantes internas","id":"m009"},{"fecha":"2026-03-27","cat":"danko","monto":5000,"paga":"pau","nota":"Vacuna","id":"m010"},{"fecha":"2026-03-27","cat":"danko","monto":6100,"paga":"pablo","nota":"Uber pet","id":"m011"},{"fecha":"2026-03-28","cat":"danko","monto":9580,"paga":"pablo","nota":"Comida húmeda Bravery y premios Naturalistic","id":"m012"},{"fecha":"2026-04-03","cat":"danko","monto":17592,"paga":"pablo","nota":"Plaque Off Superzoo","id":"m013"},{"fecha":"2026-04-04","cat":"danko","monto":12190,"paga":"pau","nota":"Gel dental Oxifresh","id":"m014"},{"fecha":"2026-04-05","cat":"danko","monto":49990,"paga":"pablo","nota":"Bravery Adulto Pollo 12 kg","id":"m015"},{"fecha":"2026-04-07","cat":"danko","monto":14423,"paga":"pau","nota":"Seguro Cactus","id":"m016"},{"fecha":"2026-04-25","cat":"danko","monto":17600,"paga":"pau","nota":"Premios y 2 latas","id":"m017"},{"fecha":"2026-05-08","cat":"danko","monto":7700,"paga":"pau","nota":"Suero para curaciones","id":"m018"},{"fecha":"2026-05-12","cat":"danko","monto":7580,"paga":"pau","nota":"Premios y comida húmeda","id":"m019"},{"fecha":"2026-05-13","cat":"danko","monto":14990,"paga":"pablo","nota":"Veelyte Spray","id":"m020"},{"fecha":"2026-05-14","cat":"danko","monto":14423,"paga":"pau","nota":"Seguro Cactus","id":"m021"},{"fecha":"2026-05-16","cat":"danko","monto":95070,"paga":"pablo","nota":"Comida Vetlife + latas","id":"m022"},{"fecha":"2026-05-22","cat":"danko","monto":49000,"paga":"pablo","nota":"Control Veterinario y exámenes","id":"m023"},{"fecha":"2026-05-31","cat":"danko","monto":7780,"paga":"pablo","nota":"Latas","id":"m024"},{"fecha":"2026-06-06","cat":"danko","monto":9900,"paga":"pau","nota":"Peluche Danko","id":"m025"},{"fecha":"2026-06-07","cat":"danko","monto":11500,"paga":"pablo","nota":"Premios y latas Razas Pet","id":"m026"},{"fecha":"2026-06-14","cat":"danko","monto":14423,"paga":"pau","nota":"Seguro Cactus","id":"m027"},{"fecha":"2026-06-19","cat":"danko","monto":18000,"paga":"pablo","nota":"Dermatóloga San Bruno","id":"m028"},{"fecha":"2026-07-12","cat":"danko","monto":49980,"paga":"pablo","nota":"Comida Danko + Cuerda","id":"m029"},{"fecha":"2026-07-14","cat":"danko","monto":15150,"paga":"pau","nota":"Seguro Cactus","id":"m030"},{"fecha":"2026-07-19","cat":"danko","monto":7980,"paga":"pau","nota":"Lata y premios salmón","id":"m031"},{"fecha":"2026-07-26","cat":"danko","monto":17790,"paga":"pablo","nota":"Nex Guard Externa","id":"m032"},{"fecha":"2026-08-02","cat":"danko","monto":10000,"paga":"pablo","nota":"Chaleco Azul Barrio Italia","id":"m033"},{"fecha":"2026-08-05","cat":"danko","monto":3500,"paga":"pau","nota":"Comida húmeda salmón","id":"m034"},{"fecha":"2026-08-09","cat":"danko","monto":3990,"paga":"pablo","nota":"Premios Doggo Salmón","id":"m035"},{"fecha":"2026-08-09","cat":"danko","monto":9180,"paga":"pablo","nota":"Comida húmeda Winga Salmón","id":"m036"},{"fecha":"2026-08-14","cat":"danko","monto":15150,"paga":"pau","nota":"Seguro Cactus","id":"m037"},{"fecha":"2026-08-23","cat":"danko","monto":57400,"paga":"pablo","nota":"Comida Bravery Salmón 12 kgs","id":"m038"},{"fecha":"2026-08-30","cat":"danko","monto":11970,"paga":"pablo","nota":"Premios Doggo Salmón","id":"m039"},{"fecha":"2026-09-06","cat":"danko","monto":30841,"paga":"pablo","nota":"Comida húmeda Superzoo","id":"m040"},{"fecha":"2026-09-14","cat":"danko","monto":15150,"paga":"pau","nota":"Seguro Cactus","id":"m041"},{"fecha":"2026-09-27","cat":"danko","monto":19590,"paga":"pablo","nota":"Simpárica Externa x3","id":"m042","liqId":"l001"},{"fecha":"2026-09-27","cat":"danko","monto":1890,"paga":"pablo","nota":"Bolsas negras x10","id":"m043","liqId":"l001"},{"fecha":"2026-10-02","cat":"danko","monto":18990,"paga":"pau","nota":"Plaque Off Dental","id":"m044","liqId":"l001"},{"fecha":"2026-10-03","cat":"danko","monto":28961,"paga":"pablo","nota":"DogGo Cuerdas y snacks","id":"m045","liqId":"l001"},{"fecha":"2026-10-23","cat":"danko","monto":62390,"paga":"pablo","nota":"Comida Bravery Salmón 12 kgs","id":"m046"},{"fecha":"2026-10-02","cat":"hogar","sub":"arriendo","monto":930600,"paga":"pablo","id":"m047","liqId":"l002"},{"fecha":"2026-10-02","cat":"hogar","sub":"luz","monto":25414,"paga":"pablo","id":"m048","liqId":"l002"},{"fecha":"2026-10-02","cat":"hogar","sub":"gas","monto":33207,"paga":"pablo","id":"m049","liqId":"l002"},{"fecha":"2026-10-02","cat":"hogar","sub":"streaming","monto":10000,"paga":"pablo","nota":"Estimado","id":"m050","liqId":"l002"},{"fecha":"2026-10-02","cat":"hogar","sub":"internet","monto":22294,"paga":"pau","id":"m051","liqId":"l002"},{"fecha":"2026-10-02","cat":"carmen","tipo":"visita","monto":60000,"paga":"pablo","nota":"Dos visitas","id":"m052","liqId":"l003"},{"fecha":"2026-10-02","cat":"carmen","tipo":"cotiz","monto":20000,"paga":"pablo","id":"m053","liqId":"l003"},{"fecha":"2026-11-03","cat":"hogar","sub":"arriendo","monto":930600,"paga":"pablo","id":"m054","liqId":"l004"},{"fecha":"2026-11-03","cat":"hogar","sub":"streaming","monto":10000,"paga":"pablo","nota":"Estimado","id":"m055","liqId":"l004"},{"fecha":"2026-11-06","cat":"super","monto":1920,"paga":"pablo","nota":"Marraquetas y palta (desayuno)","id":"m056"},{"fecha":"2026-11-06","cat":"super","monto":31008,"paga":"cf","nota":"Supermercado semanal","id":"m057"},{"fecha":"2026-11-06","cat":"comp","tipo":"salida","monto":33968,"paga":"pablo","partes":{"pablo":16984,"pau":16984},"nota":"Almuerzo en pareja","id":"m058"}],"liqs":[{"id":"l001","tipo":"danko","clave":"2026-10-20","fecha":"2026-11-05","movIds":["m042","m043","m044","m045"],"montos":{"pauAPablo":8150,"pabloAPau":0}},{"id":"l002","tipo":"hogar","clave":"2026-10","fecha":"2026-10-03","movIds":["m047","m048","m049","m050","m051"],"montos":{"pauAPablo":319221,"pauACF":288485,"pabloAPau":0,"pabloACF":0}},{"id":"l003","tipo":"carmen","clave":"2026-10","fecha":"2026-10-02","movIds":["m052","m053"],"montos":{"pauAPablo":40000,"pabloAPau":0}},{"id":"l004","tipo":"hogar","clave":"2026-11","fecha":"2026-11-03","movIds":["m054","m055"],"montos":{"pauAPablo":260600,"pauACF":369400,"pabloAPau":0,"pabloACF":0}}]};
+/* Datos iniciales: los mismos que trae la planilla Hogar.xlsx */
 function seed(){
-  var s = { v: 2, me: null, meAsked: false, config: baseConfig(), movs: [], liqs: [] };
-  function add(o){ o.id = o.id || uid(); s.movs.push(o); return o; }
-  function liq(tipo, clave, fecha, items, montos){
-    var l = { id: uid(), tipo: tipo, clave: clave, fecha: fecha, movIds: items.map(function(x){ return x.id; }), montos: montos };
-    items.forEach(function(x){ x.liqId = l.id; });
-    s.liqs.push(l); return l;
-  }
-  /* Danko 2026, desde la planilla */
-  var dk = (HIST.danko26 || []).map(function(t){ return add({ fecha: t.f, cat: "danko", monto: t.v, paga: t.p, nota: t.d }); });
-  /* Danko 21 sep a 20 oct: Pau ya pagó la liquidación */
-  var p1 = dk.filter(function(x){ return x.fecha >= "2026-09-21" && x.fecha <= "2026-10-20"; });
-  var a = sum(p1.filter(function(x){ return x.paga === "pablo"; }), function(x){ return x.monto; });
-  var b = sum(p1.filter(function(x){ return x.paga === "pau"; }), function(x){ return x.monto; }) + 15150;
-  liq("danko", "2026-10-20", "2026-11-05", p1, { pauAPablo: Math.max(0, (a - b) / 2), pabloAPau: Math.max(0, (b - a) / 2) });
-  /* Octubre */
-  var o1 = [
-    add({ fecha: "2026-10-02", cat: "hogar", sub: "arriendo", monto: 930600, paga: "pablo" }),
-    add({ fecha: "2026-10-02", cat: "hogar", sub: "luz", monto: 25414, paga: "pablo" }),
-    add({ fecha: "2026-10-02", cat: "hogar", sub: "gas", monto: 33207, paga: "pablo" }),
-    add({ fecha: "2026-10-02", cat: "hogar", sub: "streaming", monto: 10000, paga: "pablo", nota: "Estimado" }),
-    add({ fecha: "2026-10-02", cat: "hogar", sub: "internet", monto: 22294, paga: "pau" })
-  ];
-  liq("hogar", "2026-10", "2026-10-03", o1, { pauAPablo: 319221, pauACF: 288485, pabloAPau: 0, pabloACF: 0 });
-  var c1 = [
-    add({ fecha: "2026-10-02", cat: "carmen", tipo: "visita", monto: 60000, paga: "pablo", nota: "Dos visitas" }),
-    add({ fecha: "2026-10-02", cat: "carmen", tipo: "cotiz", monto: 20000, paga: "pablo" })
-  ];
-  liq("carmen", "2026-10", "2026-10-02", c1, { pauAPablo: 40000, pabloAPau: 0 });
-  /* Noviembre: arriendo y streaming liquidados el 3; faltan gastos comunes, luz, gas e internet */
-  var n1 = [
-    add({ fecha: "2026-11-03", cat: "hogar", sub: "arriendo", monto: 930600, paga: "pablo" }),
-    add({ fecha: "2026-11-03", cat: "hogar", sub: "streaming", monto: 10000, paga: "pablo", nota: "Estimado" })
-  ];
-  liq("hogar", "2026-11", "2026-11-03", n1, { pauAPablo: 260600, pauACF: 369400, pabloAPau: 0, pabloACF: 0 });
-  add({ fecha: "2026-11-06", cat: "super", monto: 1920, paga: "pablo", nota: "Marraquetas y palta (desayuno)" });
-  add({ fecha: "2026-11-06", cat: "super", monto: 31008, paga: "cf", nota: "Supermercado semanal" });
-  add({ fecha: "2026-11-06", cat: "comp", tipo: "salida", monto: 33968, paga: "pablo", partes: { pablo: 16984, pau: 16984 }, nota: "Almuerzo en pareja" });
-  return s;
+  var d = JSON.parse(JSON.stringify(SEED));
+  return { v: 3, me: null, meAsked: false, config: baseConfig(), movs: d.movs, liqs: d.liqs };
 }
 /* ---------- Guardado local y sincronización con la planilla ---------- */
 var CONN_KEY = "hogar-conexion", Q_KEY = "hogar-cola", BASE_KEY = "hogar-base", ME_KEY = "hogar-persona";
@@ -646,7 +612,7 @@ function dankoCalc(end){
   var cactusHist = recById("cactus");
   var desde = cactusHist && cactusHist.hist.length ? cactusHist.hist.slice().sort(function(a, b){ return a.desde < b.desde ? -1 : 1; })[0].desde : "9999";
   var virt = null;
-  if (cact > 0 && st >= desde) { virt = { id: "v-" + end, fecha: st, cat: "danko", monto: cact, paga: recById("cactus").paga, nota: "Seguro Cactus (automático)", virtual: true }; items.push(virt); }
+  if (cact > 0 && st >= desde) { virt = { id: "v-" + end, fecha: addDays(end, -6), cat: "danko", monto: cact, paga: recById("cactus").paga, nota: "Seguro Cactus (se cobra el día 14)", virtual: true }; items.push(virt); }
   items.sort(function(a, b){ return a.fecha < b.fecha ? 1 : -1; });
   var pPablo = sum(items.filter(function(x){ return x.paga === "pablo"; }), function(x){ return x.monto; });
   var pPau = sum(items.filter(function(x){ return x.paga === "pau"; }), function(x){ return x.monto; });

@@ -1,5 +1,5 @@
 /* Hogar: funciona sin señal con la última versión descargada. Cambien VERSION al publicar cambios. */
-var VERSION = "hogar-2026-11-06";
+var VERSION = "hogar-2026-11-06b";
 var ARCHIVOS = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VERSION).then(function (c) { return c.addAll(ARCHIVOS); }));
