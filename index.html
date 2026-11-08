@@ -21,7 +21,7 @@
   --accent:#1A5F6E; --accent-ink:#FFFFFF; --accent-soft:#DCEDEF; --accent-strong:#124651;
   --hero-bg:#1A5F6E; --hero-fg:#FFFFFF; --hero-fg2:#D5E8EB; --hero-track:#3E7C89; --hero-fill:#FFFFFF;
   --danko:#B4502A; --danko-soft:#F8E5DB; --danko-ink:#6B3015;
-  --finde:#6250D6; --finde-soft:#E9E6FB; --finde-ink:#3A2E8C; --hog:#2A78D6; --hog-soft:#E3EEFB; --car:#B8406F; --car-soft:#F9E3EC;
+  --finde:#6250D6; --finde-soft:#E9E6FB; --finde-ink:#3A2E8C; --hog:#2A78D6; --hog-soft:#E3EEFB; --car:#B8406F; --car-soft:#F9E3EC; --otr:#8A5F00; --otr-soft:#FBF0D5; --otr-ink:#5C3F00;
   --ok:#2A7548; --ok-soft:#DFF0E5; --warn:#7A4A00; --warn-soft:#F6EBD2; --crit:#B3332A; --crit-soft:#F9E0DD;
   --s1:#2a78d6; --s2:#eb6834; --c1:#2a78d6; --c2:#eb6834; --c3:#1baf7a; --c4:#eda100; --c5:#e87ba4; --c6:#008300; --c7:#6250d6; --bar:#1A5F6E; --bar-dim:#B9CFD3; --chart-crit:#d03b3b; --grid:#E3E8E6;
   --scrim:rgba(14,26,29,.45); --shadow:0 6px 20px rgba(20,37,43,.18);
@@ -34,7 +34,7 @@
     --ink:#E4EEEC; --ink-2:#B9C9C7; --muted:#97A9AB;
     --accent:#5BB8C7; --accent-ink:#06191D; --accent-soft:#163A42; --accent-strong:#9ADBE5;
     --hero-bg:#1E4D57; --hero-fg:#EEF8F9; --hero-fg2:#B9DADF; --hero-track:#2F6772; --hero-fill:#EEF8F9;
-    --danko:#F08A62; --danko-soft:#3A2219; --danko-ink:#F6C2A9; --finde:#A79DF2; --finde-soft:#2A2550; --finde-ink:#D3CEFA; --hog:#6AA6EE; --hog-soft:#1B2F47; --car:#E58AB0; --car-soft:#3E2230;
+    --danko:#F08A62; --danko-soft:#3A2219; --danko-ink:#F6C2A9; --finde:#A79DF2; --finde-soft:#2A2550; --finde-ink:#D3CEFA; --hog:#6AA6EE; --hog-soft:#1B2F47; --car:#E58AB0; --car-soft:#3E2230; --otr:#E6B54A; --otr-soft:#3A2E12; --otr-ink:#F5DDA0;
     --ok:#6FCB95; --ok-soft:#163323; --warn:#F0C362; --warn-soft:#33290F; --crit:#FF8E7B; --crit-soft:#3A1E19;
     --s1:#3987e5; --s2:#d95926; --c1:#3987e5; --c2:#d95926; --c3:#199e70; --c4:#c98500; --c5:#d55181; --c6:#008300; --c7:#9085e9; --bar:#4FA9B8; --bar-dim:#4E727A; --chart-crit:#e66767; --grid:#24363C;
     --scrim:rgba(0,0,0,.6); --shadow:0 6px 20px rgba(0,0,0,.5);
@@ -46,7 +46,7 @@
   --ink:#E4EEEC; --ink-2:#B9C9C7; --muted:#97A9AB;
   --accent:#5BB8C7; --accent-ink:#06191D; --accent-soft:#163A42; --accent-strong:#9ADBE5;
   --hero-bg:#1E4D57; --hero-fg:#EEF8F9; --hero-fg2:#B9DADF; --hero-track:#2F6772; --hero-fill:#EEF8F9;
-  --danko:#F08A62; --danko-soft:#3A2219; --danko-ink:#F6C2A9; --finde:#A79DF2; --finde-soft:#2A2550; --finde-ink:#D3CEFA; --hog:#6AA6EE; --hog-soft:#1B2F47; --car:#E58AB0; --car-soft:#3E2230;
+  --danko:#F08A62; --danko-soft:#3A2219; --danko-ink:#F6C2A9; --finde:#A79DF2; --finde-soft:#2A2550; --finde-ink:#D3CEFA; --hog:#6AA6EE; --hog-soft:#1B2F47; --car:#E58AB0; --car-soft:#3E2230; --otr:#E6B54A; --otr-soft:#3A2E12; --otr-ink:#F5DDA0;
   --ok:#6FCB95; --ok-soft:#163323; --warn:#F0C362; --warn-soft:#33290F; --crit:#FF8E7B; --crit-soft:#3A1E19;
   --s1:#3987e5; --s2:#d95926; --c1:#3987e5; --c2:#d95926; --c3:#199e70; --c4:#c98500; --c5:#d55181; --c6:#008300; --c7:#9085e9; --bar:#4FA9B8; --bar-dim:#4E727A; --chart-crit:#e66767; --grid:#24363C;
   --scrim:rgba(0,0,0,.6); --shadow:0 6px 20px rgba(0,0,0,.5);
@@ -97,6 +97,9 @@ button{cursor:pointer}
 .tot-line{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin:4px 2px 0}
 .mov.virt{background:var(--sunken)}
 :root[data-g="danko"][data-g]{--accent:var(--danko);--accent-soft:var(--danko-soft);--accent-strong:var(--danko-ink)}
+:root[data-g="otros"][data-g]{--accent:var(--otr);--accent-soft:var(--otr-soft);--accent-strong:var(--otr-ink)}
+.mov .ico.otr{background:var(--otr-soft);color:var(--otr)}
+.icon-btn[aria-current]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 :root[data-g="finde"][data-g]{--accent:var(--finde);--accent-soft:var(--finde-soft);--accent-strong:var(--finde-ink)}
 .mov .ico.hog{background:var(--hog-soft);color:var(--hog)}
 .mov .ico.fin{background:var(--finde-soft);color:var(--finde)}
@@ -114,6 +117,10 @@ button{cursor:pointer}
 .tk i{display:block;height:100%;background:var(--accent);border-radius:99px}
 .tk.over i{background:var(--warn)}
 .tag-g{font-size:11.5px;font-weight:700;padding:1px 7px;border-radius:6px;background:var(--sunken);color:var(--ink-2);margin-left:6px;vertical-align:1px}
+.line:has(.it-r)>span:first-child{flex:1;min-width:0}
+.line:has(.it-r) .q{white-space:normal}
+.line .it-r{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none}
+.line .it-b{min-height:34px;padding:0 10px;font-size:13px}
 .icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
 .icon-btn svg,.ic{width:22px;height:22px;flex:none}
 
@@ -376,6 +383,7 @@ var IC = {
   chart: '<path d="M5 20V11M11 20V5M17 20v-7M2 20h20"/>',
   gear: '<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
   cog: '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+  ticket: '<path d="M3 9a2 2 0 0 0 0 4v4a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-4a2 2 0 0 1 0-4V5a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1z" transform="translate(0 1)"/><path d="M13 6v2M13 11v2M13 16v2"/>',
   cart: '<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2.5 3.5h3l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.3a1.5 1.5 0 0 0 1.4-1.1L21 7.5H6.4"/>',
   apple: '<path d="M12 7c-1-2.5-3-3.5-5-3"/><path d="M12 7.5c-4.5-2-8 1-8 5.5 0 4.2 3 8 5.5 8 1 0 1.6-.5 2.5-.5s1.5.5 2.5.5c2.5 0 5.5-3.8 5.5-8 0-4.5-3.5-7.5-8-5.5z"/>',
   receipt: '<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/>',
@@ -399,9 +407,10 @@ var CATS = {
   hogar:  { n: "Cuenta del hogar", i: "receipt", cls: "hog" },
   comp:   { n: "Salidas y otros", i: "people", cls: "fin" },
   danko:  { n: "Danko", i: "paw", cls: "danko" },
-  carmen: { n: "Carmen", i: "person", cls: "car" }
+  carmen: { n: "Carmen", i: "person", cls: "car" },
+  otros:  { n: "Otros", i: "ticket", cls: "otr" }
 };
-var CAT_ORDER = ["super", "feria", "hogar", "comp", "danko", "carmen"];
+var CAT_ORDER = ["super", "feria", "hogar", "comp", "otros", "danko", "carmen"];
 var SUBS = { arriendo: "Arriendo", ggcc: "Gastos comunes", luz: "Luz", gas: "Gas", internet: "Internet", streaming: "Streaming", otro: "Otra cuenta" };
 var SUB_ORDER = ["arriendo", "ggcc", "luz", "gas", "internet", "streaming", "otro"];
 var COMP_T = { salida: "Salida", extra: "Compra compartida" };
@@ -410,21 +419,24 @@ var TILES = [
   { k: "feria", cat: "feria", n: "Feria", i: "apple", w: 3, g: "hogar" },
   { k: "hogar", cat: "hogar", n: "Cuenta del hogar", i: "receipt", w: 2, g: "hogar" },
   { k: "salida", cat: "comp", tipo: "salida", n: "Salida", i: "people", w: 2, g: "finde" },
-  { k: "otros", cat: "comp", tipo: "extra", n: "Compra compartida", i: "bag", w: 2, g: "finde" },
+  { k: "evento", cat: "otros", tipo: "evento", n: "Evento o salida especial", i: "ticket", w: 3, g: "otros" },
+  { k: "casa", cat: "otros", tipo: "casa", n: "Cosas para la casa", i: "home", w: 3, g: "otros" },
+  { k: "otroc", cat: "otros", tipo: "otro", n: "Otro", i: "bag", w: 3, g: "otros" },
   { k: "danko", cat: "danko", n: "Danko", i: "paw", w: 3, g: "danko" },
   { k: "carmen", cat: "carmen", n: "Carmen", i: "person", w: 3, g: "hogar" }
 ];
 function tileBy(k){ for (var i = 0; i < TILES.length; i++) if (TILES[i].k === k) return TILES[i]; return TILES[0]; }
-var GROUPS = { hogar: "Hogar", danko: "Danko", finde: "Finde" };
-var GFIRST = { hogar: "super", danko: "danko", finde: "salida" };
-function groupOf(cat){ return cat === "danko" ? "danko" : cat === "comp" ? "finde" : "hogar"; }
-function pendGroup(k){ return k.indexOf("danko") === 0 ? "danko" : k.indexOf("semana") === 0 ? "finde" : "hogar"; }
+var GROUPS = { hogar: "Hogar", danko: "Danko", finde: "Finde", otros: "Otros" };
+var GFIRST = { hogar: "super", danko: "danko", finde: "salida", otros: "evento" };
+function groupOf(cat){ return cat === "danko" ? "danko" : cat === "comp" ? "finde" : cat === "otros" ? "otros" : "hogar"; }
+function pendGroup(k){ return k.indexOf("danko") === 0 ? "danko" : k.indexOf("semana") === 0 ? "finde" : k.indexOf("otros") === 0 ? "otros" : "hogar"; }
 var CARMEN_T = { visita: "Visita", cotiz: "Cotizaciones" };
+var OTROS_T = { evento: "Evento", casa: "Casa", otro: "Otro" };
 
 /* ---------- Estado ---------- */
 var KEY = "hogar-datos-v3";
 var S = null;
-var ui = { histCat: "todo", histRange: "actual", view: "hogar", mm: { hogar: mk(TODAY), finde: mk(TODAY), danko: null }, mf: { hogar: "todo", finde: "todo", danko: "todo" }, liqOpen: {}, movMonth: mk(TODAY), movFilter: "todo", numTab: "mes", numMonth: mk(TODAY), sel: {}, confirm: null, edit: null, toast: null, bannerHidden: false };
+var ui = { histCat: "todo", histRange: "actual", view: "hogar", mm: { hogar: mk(TODAY), finde: mk(TODAY), otros: mk(TODAY), danko: null }, mf: { hogar: "todo", finde: "todo", danko: "todo", otros: "todo" }, liqOpen: {}, movMonth: mk(TODAY), movFilter: "todo", numTab: "mes", numMonth: mk(TODAY), sel: {}, confirm: null, edit: null, toast: null, bannerHidden: false };
 
 function baseConfig(){
   return {
@@ -624,6 +636,7 @@ function byId(id){ for (var i = 0; i < S.movs.length; i++) if (S.movs[i].id === 
 function movTitle(x){
   if (x.cat === "hogar") return SUBS[x.sub] || "Cuenta del hogar";
   if (x.cat === "comp") return x.nota || COMP_T[x.tipo] || "Compartido";
+  if (x.cat === "otros") return x.nota || OTROS_T[x.tipo] || "Otros";
   if (x.cat === "carmen") return CARMEN_T[x.tipo] ? (x.tipo === "visita" ? "Carmen: visita" : "Carmen: cotizaciones") : "Carmen";
   if (x.cat === "danko") return x.nota || "Danko";
   return x.nota || (CATS[x.cat] ? CATS[x.cat].n : "Gasto");
@@ -693,6 +706,10 @@ function dankoCalc(end){
   var done = !!liq || end <= S.config.dankoLiqHasta;
   return { end: end, st: st, liq: liq, done: done, items: items, total: sum(items, function(x){ return x.monto; }), pPablo: pPablo, pPau: pPau, r: liq ? (liq.montos.pauAPablo - liq.montos.pabloAPau) : sum(items, debe), enCurso: TODAY >= st && TODAY <= end };
 }
+function otrosCalc(){
+  var items = S.movs.filter(function(x){ return x.cat === "otros" && x.paga !== "cf" && !x.liqId; }).sort(function(a, b){ return a.fecha < b.fecha ? -1 : 1; });
+  return { items: items, r: sum(items, debe), total: sum(items, function(x){ return x.monto; }) };
+}
 function semanaCalc(ws){
   var we = addDays(ws, 6), liq = liqFind("semana", ws);
   var all = movsIn(ws, we, "comp");
@@ -706,7 +723,7 @@ function cfSaldo(){
   S.liqs.forEach(function(l){
     if (l.fecha < desde) return;
     if (l.tipo === "hogar") s += (l.montos.pauACF || 0) + (l.montos.pabloACF || 0);
-    if (l.tipo === "reemb") s -= (l.montos.cfAPablo || 0) + (l.montos.cfAPau || 0);
+    if (l.tipo === "reemb" || l.tipo === "gasto") s -= (l.montos.cfAPablo || 0) + (l.montos.cfAPau || 0);
     if (l.tipo === "ajuste") s += l.montos.delta || 0;
   });
   S.movs.forEach(function(x){ if (x.paga === "cf" && x.fecha >= desde) s -= x.monto; });
@@ -751,6 +768,8 @@ function pendientes(){
     var dk = dankoCalc(e);
     if (!dk.done && dk.items.length) out.push({ k: "danko-" + e, t: "Danko · " + dShort(dk.st) + " al " + dShort(e), d: dk.enCurso ? "cierra el " + dShort(e) + " · si se cerrara hoy" : "cerrado · se transfiere cuando les acomode", r: dk.r, sort: e, danko: true, cur: dk.enCurso });
   }
+  var oc = otrosCalc();
+  if (oc.items.length && Math.round(oc.r) !== 0) out.push({ k: "otros", t: "Otros", d: oc.items.length + (oc.items.length === 1 ? " gasto" : " gastos") + " · cuando les acomode", r: oc.r, sort: TODAY });
   out.sort(function(x, y){ return x.sort < y.sort ? -1 : 1; });
   return out;
 }
@@ -835,7 +854,7 @@ var INFO = {
   },
   cf: function(){
     var c = S.config.cf, desde = c.fecha || "2026-10-01", dep = 0, rem = 0, aj = 0;
-    S.liqs.forEach(function(l){ if (l.fecha < desde) return; if (l.tipo === "hogar") dep += (l.montos.pauACF || 0) + (l.montos.pabloACF || 0); if (l.tipo === "reemb") rem += (l.montos.cfAPablo || 0) + (l.montos.cfAPau || 0); if (l.tipo === "ajuste") aj += l.montos.delta || 0; });
+    S.liqs.forEach(function(l){ if (l.fecha < desde) return; if (l.tipo === "hogar") dep += (l.montos.pauACF || 0) + (l.montos.pabloACF || 0); if (l.tipo === "reemb" || l.tipo === "gasto") rem += (l.montos.cfAPablo || 0) + (l.montos.cfAPau || 0); if (l.tipo === "ajuste") aj += l.montos.delta || 0; });
     var cfm = S.movs.filter(function(x){ return x.paga === "cf" && x.fecha >= desde; }), gas = sum(cfm, function(x){ return x.monto; });
     var recent = cfm.slice().sort(byF).slice(-8);
     return { t: "Cuenta familiar · " + c.banco, h:
@@ -859,6 +878,13 @@ var INFO = {
       isec("Qué es", ip("Gastos del hogar que uno pagó con su plata. Si son «de los dos», los devuelve la cuenta familiar; si son «solo del otro», los devuelve esa persona. Lo marcado como «solo mío» no se devuelve.")) +
       isec("Detalle", mlist(re) + (rm.cfAPablo ? kv("La cuenta familiar le devuelve a Pablo", fmt(rm.cfAPablo), true) : "") + (rm.cfAPau ? kv("La cuenta familiar le devuelve a Pau", fmt(rm.cfAPau), true) : "") + (rm.pauAPablo ? kv("Pau le devuelve a Pablo", fmt(rm.pauAPablo), true) : "") + (rm.pabloAPau ? kv("Pablo le devuelve a Pau", fmt(rm.pabloAPau), true) : "")) +
       isec("Cuándo", ip("Cuando les acomode, por ejemplo junto con la transferencia del domingo. Al registrarlo, el monto se descuenta del saldo de la cuenta familiar.")) };
+  },
+  "liq-otros": function(){
+    var oc = otrosCalc();
+    return { t: "Otros", h:
+      isec("Qué es", ip("Gastos compartidos sin fecha fija: conciertos, eventos, cosas para la casa. Cada gasto se reparte mitad y mitad o como lo anoten, igual que en Finde.")) +
+      isec("Detalle", mlist(oc.items) + kv(oc.r > 0 ? "Pau le debe a Pablo" : oc.r < 0 ? "Pablo le debe a Pau" : "Están a mano", fmt(Math.abs(oc.r)), true)) +
+      isec("Cuándo", ip("Cuando les acomode: de a un gasto o todo junto, por ejemplo a fin de mes. Desde el 25 aparece el aviso en la pestaña.")) };
   },
   "liq-semana": function(ws){
     var s = semanaCalc(ws), rows = "";
@@ -1011,8 +1037,8 @@ function lineChart(o){
 /* ---------- Vistas ---------- */
 function topBar(title, sub){
   var me = S.meAsked ? S.me : null;
-  return '<header class="top"><div style="min-width:0"><p class="date">' + esc(sub) + ' · <span id="sync-st" class="sync">' + esc(syncText()) + "</span></p><h1>" + esc(title) + '</h1></div><div class="top-actions">' +
-    (me ? '<span class="av-me" role="img" aria-label="Este celular es de ' + NAME[me] + '" title="Este celular es de ' + NAME[me] + '">' + NAME[me] + "</span>" : "") +
+  return '<header class="top"><div style="min-width:0"><p class="date">' + esc(sub) + (me ? " · " + NAME[me] : "") + ' · <span id="sync-st" class="sync">' + esc(syncText()) + "</span></p><h1>" + esc(title) + '</h1></div><div class="top-actions">' +
+    '<a class="icon-btn" href="#estadisticas" aria-label="Estadísticas" title="Estadísticas"' + (ui.view === "estadisticas" ? ' aria-current="page"' : "") + ">" + icon("chart") + "</a>" +
     '<a class="chip-set" href="#ajustes"' + (ui.view === "ajustes" ? ' aria-current="page"' : "") + ">" + icon("cog") + "<span>Ajustes</span></a></div></header>";
 }
 function meCard(){
@@ -1036,7 +1062,7 @@ function cfMes(m){
   S.liqs.forEach(function(l){
     if (mk(l.fecha) !== m) return;
     if (l.tipo === "hogar") dep += (l.montos.pauACF || 0) + (l.montos.pabloACF || 0);
-    if (l.tipo === "reemb") out += (l.montos.cfAPablo || 0) + (l.montos.cfAPau || 0);
+    if (l.tipo === "reemb" || l.tipo === "gasto") out += (l.montos.cfAPablo || 0) + (l.montos.cfAPau || 0);
   });
   S.movs.forEach(function(x){ if (x.paga === "cf" && mk(x.fecha) === m) out += x.monto; });
   return { dep: dep, out: out };
@@ -1081,7 +1107,7 @@ function presCard(m){
   var food = sum(list.filter(function(x){ return x.cat === "super" || x.cat === "feria"; }), function(x){ return x.monto; }), foodRef = foodMonth(m);
   var hog = 0, hogRef = 0;
   ["arriendo", "ggcc", "luz", "gas", "internet", "streaming"].forEach(function(sub){ hog += sum(list.filter(function(x){ return x.cat === "hogar" && x.sub === sub; }), function(x){ return x.monto; }); hogRef += presSub(sub, m); });
-  var otr = sum(list.filter(function(x){ return (x.cat === "hogar" && x.sub === "otro") || (x.cat === "comp" && x.paga === "cf"); }), function(x){ return x.monto; }), otrRef = presSub("otro", m);
+  var otr = sum(list.filter(function(x){ return (x.cat === "hogar" && x.sub === "otro") || ((x.cat === "comp" || x.cat === "otros") && x.paga === "cf"); }), function(x){ return x.monto; }), otrRef = presSub("otro", m);
   var ap = aporte(m), proj = Math.max(food, foodRef) + Math.max(hog, hogRef) + Math.max(otr, otrRef), queda = ap.total - proj;
   var h = '<section class="card" data-info="num-hogar:' + m + '"><div class="card-h"><h2>Presupuesto de ' + monthName(m) + '</h2><a class="link" href="#estadisticas">Detalle</a></div><p class="sub">Lo gastado en el mes; la raya marca la referencia.</p>';
   h += bullet("Alimentación", food, foodRef, "supermercado y feria") + bullet("Cuentas del hogar", hog, hogRef, "arriendo y boletas") + bullet("Otros con la cuenta familiar", otr, otrRef, "");
@@ -1152,7 +1178,7 @@ function liqBody(k){
   } else if (k === "reemb") {
     infoK = "liq-reemb";
     var re = reembItems(), rm = reembMontos(re);
-    re.forEach(function(x){ var f = reembFrom(x); h += '<div class="line"><span>' + esc(movTitle(x)) + ' <span class="q">· pagó ' + NAME[x.paga] + " · " + dShort(x.fecha) + (f !== "cf" ? " · de " + NAME[f] : "") + "</span></span><span>" + fmt(x.monto) + "</span></div>"; });
+    re.forEach(function(x){ var f = reembFrom(x); h += '<div class="line"><span>' + esc(movTitle(x)) + ' <span class="q">· pagó ' + NAME[x.paga] + " · " + dShort(x.fecha) + (f !== "cf" ? " · de " + NAME[f] : "") + "</span></span>" + '<span class="it-r"><span>' + fmt(x.monto) + "</span>" + uno(x, "reemb") + "</span></div>"; });
     if (rm.cfAPablo) h += resultLine(rm.cfAPablo, "La cuenta familiar le devuelve a Pablo");
     if (rm.cfAPau) h += resultLine(rm.cfAPau, "La cuenta familiar le devuelve a Pau");
     if (rm.pauAPablo) h += resultLine(rm.pauAPablo, "Pau le devuelve a Pablo");
@@ -1161,23 +1187,43 @@ function liqBody(k){
   } else if (k.indexOf("carmen-") === 0) {
     m = k.slice(7); infoK = "liq-carmen:" + m;
     var c = carmenCalc(m);
-    c.items.forEach(function(x){ h += '<div class="line"><span>' + (x.tipo === "visita" ? "Visita" : "Cotizaciones") + ' <span class="q">· ' + NAME[x.paga] + " · " + dShort(x.fecha) + "</span></span><span>" + fmt(x.monto) + "</span></div>"; });
+    c.items.forEach(function(x){ h += '<div class="line"><span>' + (x.tipo === "visita" ? "Visita" : "Cotizaciones") + ' <span class="q">· ' + NAME[x.paga] + " · " + dShort(x.fecha) + "</span></span>" + '<span class="it-r"><span>' + fmt(x.monto) + "</span>" + uno(x, "carmen") + "</span></div>"; });
     h += '<div class="line"><span>Total del mes</span><span>' + fmt(c.total) + "</span></div>" + resultLine(c.r) + confirmBlock("carmen-" + m, "Registrar transferencia", "¿Ya hicieron la transferencia de Carmen de " + monthName(m) + "?", "liq-carmen", m);
   } else if (k.indexOf("semana-") === 0) {
     var w = k.slice(7), sm = semanaCalc(w); infoK = "liq-semana:" + w;
     sm.all.forEach(function(x){
       var o = x.paga === "cf" ? "cuenta familiar" : NAME[other(x.paga)] + " debe " + fmt(x.partes ? x.partes[other(x.paga)] : x.monto / 2);
-      h += '<div class="line"><span>' + esc(movTitle(x)) + ' <span class="q">· pagó ' + NAME[x.paga] + " · " + o + "</span></span><span>" + fmt(x.monto) + "</span></div>";
+      h += '<div class="line"><span>' + esc(movTitle(x)) + ' <span class="q">· pagó ' + NAME[x.paga] + " · " + o + "</span></span>" + '<span class="it-r"><span>' + fmt(x.monto) + "</span>" + uno(x, "semana") + "</span></div>";
     });
     if (!sm.all.length) h += '<p class="sub">Nada anotado esta semana.</p>';
     else h += resultLine(sm.r) + confirmBlock("semana-" + w, "Registrar transferencia", "¿Ya hicieron la transferencia de la semana?", "liq-semana", w);
+  } else if (k === "otros") {
+    var oc2 = otrosCalc(); infoK = "liq-otros";
+    oc2.items.forEach(function(x){
+      var o = NAME[other(x.paga)] + " debe " + fmt(Math.abs(debe(x)));
+      h += '<div class="line"><span>' + esc(movTitle(x)) + ' <span class="q">· ' + dShort(x.fecha) + " · pagó " + NAME[x.paga] + " · " + o + "</span></span>" + '<span class="it-r"><span>' + fmt(x.monto) + "</span>" + uno(x, "otros") + "</span></div>";
+    });
+    h += resultLine(oc2.r) + confirmBlock("otros", "Registrar transferencia de todo", "¿Ya hicieron la transferencia de todo lo pendiente en Otros?", "liq-otros", "x");
   } else if (k.indexOf("danko-") === 0) {
     var e = k.slice(6), dk = dankoCalc(e); infoK = "liq-danko:" + e;
-    dk.items.forEach(function(x){ var co = correOf(x); h += '<div class="line"><span>' + esc(x.nota || "Danko") + ' <span class="q">· ' + NAME[x.paga] + " · " + dShort(x.fecha) + (co !== "ambos" ? " · solo de " + NAME[co] : "") + "</span></span><span>" + fmt(x.monto) + "</span></div>"; });
+    dk.items.forEach(function(x){ var co = correOf(x); h += '<div class="line"><span>' + esc(x.nota || "Danko") + ' <span class="q">· ' + NAME[x.paga] + " · " + dShort(x.fecha) + (co !== "ambos" ? " · solo de " + NAME[co] : "") + "</span></span>" + '<span class="it-r"><span>' + fmt(x.monto) + "</span>" + uno(x, "danko") + "</span></div>"; });
     h += '<div class="line"><span>Total del período</span><span>' + fmt(dk.total) + "</span></div>" + resultLine(dk.r);
     if (!dk.liq) h += confirmBlock("danko-" + e, dk.enCurso ? "Registrar ahora" : "Registrar transferencia", "¿Ya hicieron la transferencia de Danko del " + dShort(dk.st) + " al " + dShort(e) + "?", "liq-danko", e);
   }
   return h + '<button type="button" class="how" data-act="info" data-v="' + infoK + '">Cómo se calcula</button>';
+}
+/* Monto de un solo gasto: en Hogar (devoluciones) o entre ustedes (Finde, Danko, Carmen) */
+function montosUno(x, ctx){
+  if (ctx === "reemb") return reembMontos([x]);
+  var r = debe(x), m = {};
+  if (r > 0) m.pauAPablo = Math.round(r); else if (r < 0) m.pabloAPau = Math.round(-r);
+  return m;
+}
+function uno(x, ctx){
+  if (x.virtual) return "";
+  if (x.liqId) return '<span class="pill ok">transferido</span>';
+  if (!Object.keys(montosUno(x, ctx)).length) return "";
+  return '<button type="button" class="btn small quiet it-b" data-act="liq-uno" data-v="' + x.id + '" data-c="' + ctx + '">Transferido</button>';
 }
 function liqItemRow(x, g, open){
   return '<button type="button" class="liq-row" data-act="liq-open" data-v="' + x.k + '" aria-expanded="' + open + '"><div class="grow"><div class="t">' + esc(x.t) + '</div><div class="d">' + esc(x.d) + '</div></div><div class="amt num">' + (x.r == null ? (x.txt ? '<span style="font-size:14px">' + esc(x.txt) + "</span>" : '<span class="pill warn">Falta</span>') : fmt(Math.abs(x.r)) + "<small>" + dirShort(x.r) + "</small>") + '</div><span class="go">' + (open ? "Cerrar" : "Ver") + "</span></button>" +
@@ -1193,8 +1239,8 @@ function liqCard(g, items, title){
   return h + "</section>";
 }
 function movRow(x){
-  var co = correOf(x), c = x.cat === "comp" && x.tipo === "extra" ? { i: "bag", cls: "fin" } : CATS[x.cat] || { i: "receipt", cls: "" }, part = co !== "ambos" ? (co === x.paga ? "solo de " + NAME[co] + ", sin devolución" : "solo de " + NAME[co]) : x.cat === "comp" && x.partes ? "Pablo " + fmt(x.partes.pablo) + " · Pau " + fmt(x.partes.pau) : "";
-  var inner = '<span class="ico ' + c.cls + '">' + icon(c.i) + '</span><span class="grow"><span class="t">' + esc(movTitle(x)) + '</span><span class="d">' + (x.cat === "comp" ? COMP_T[x.tipo] + " · " : "") + (x.virtual ? NAME[x.paga] + " · automático, toca para registrar el pago" : "Pagó " + NAME[x.paga]) + (part ? " · " + part : "") + (x.liqId ? " · transferido" : "") + '</span></span><span class="amt num">' + fmt(x.monto) + "</span>";
+  var co = correOf(x), c = x.cat === "comp" && x.tipo === "extra" ? { i: "bag", cls: "fin" } : CATS[x.cat] || { i: "receipt", cls: "" }, part = co !== "ambos" ? (co === x.paga ? "solo de " + NAME[co] + ", sin devolución" : "solo de " + NAME[co]) : (x.cat === "comp" || x.cat === "otros") && x.partes ? "Pablo " + fmt(x.partes.pablo) + " · Pau " + fmt(x.partes.pau) : "";
+  var inner = '<span class="ico ' + c.cls + '">' + icon(c.i) + '</span><span class="grow"><span class="t">' + esc(movTitle(x)) + '</span><span class="d">' + (x.cat === "comp" ? COMP_T[x.tipo] + " · " : x.cat === "otros" ? (OTROS_T[x.tipo] || "Otro") + " · " : "") + (x.virtual ? NAME[x.paga] + " · automático, toca para registrar el pago" : "Pagó " + NAME[x.paga]) + (part ? " · " + part : "") + (x.liqId ? " · transferido" : "") + '</span></span><span class="amt num">' + fmt(x.monto) + "</span>";
   return x.virtual ? '<button type="button" class="mov virt" data-act="reg-seguro" data-v="' + dankoEnd(x.fecha) + '">' + inner + "</button>" : '<button type="button" class="mov" data-act="edit" data-v="' + x.id + '">' + inner + "</button>";
 }
 function movDays(list){
@@ -1205,20 +1251,20 @@ function movDays(list){
   });
   return day ? h + "</div>" : h;
 }
-var MF = { hogar: [["todo", "Todo"], ["alim", "Alimentación"], ["hogar", "Cuentas"], ["carmen", "Carmen"], ["liq", "Transferencias"]], finde: [["todo", "Todo"], ["salida", "Salidas"], ["extra", "Compras compartidas"], ["liq", "Transferencias"]], danko: [["todo", "Gastos"], ["liq", "Transferencias"]] };
-var LIQ_G = { hogar: ["hogar", "reemb", "carmen", "ajuste"], danko: ["danko"], finde: ["semana"] };
+var MF = { hogar: [["todo", "Todo"], ["alim", "Alimentación"], ["hogar", "Cuentas"], ["carmen", "Carmen"], ["liq", "Transferencias"]], finde: [["todo", "Todo"], ["liq", "Transferencias"]], danko: [["todo", "Gastos"], ["liq", "Transferencias"]], otros: [["todo", "Todo"], ["evento", "Eventos"], ["casa", "Casa"], ["otro", "Otro"], ["liq", "Transferencias"]] };
+var LIQ_G = { hogar: ["hogar", "reemb", "carmen", "ajuste"], danko: ["danko"], finde: ["semana"], otros: ["otros"] };
 function movSection(g){
   var f = ui.mf[g] || "todo", h = '<p class="sec-l">Movimientos</p>', list, label, liqs;
   if (g === "danko") {
     var e = ui.mm.danko || dankoEnd(TODAY), dk = dankoCalc(e);
     label = dShort(dk.st) + " al " + dShort(e);
     list = movsIn(dk.st, e, "danko").concat(dk.items.filter(function(x){ return x.virtual; }));
-    liqs = S.liqs.filter(function(l){ return l.tipo === "danko" && l.clave === e; });
+    liqs = S.liqs.filter(function(l){ var x = l.tipo === "gasto" && byId(l.clave); return (l.tipo === "danko" && l.clave === e) || (x && x.cat === "danko" && x.fecha >= dk.st && x.fecha <= e); });
   } else {
     var m = ui.mm[g];
     label = monthLabel(m);
     list = S.movs.filter(function(x){ return mk(x.fecha) === m && groupOf(x.cat) === g; });
-    liqs = S.liqs.filter(function(l){ return mk(l.fecha) === m && LIQ_G[g].indexOf(l.tipo) >= 0; });
+    liqs = S.liqs.filter(function(l){ var x = l.tipo === "gasto" && byId(l.clave); return mk(l.fecha) === m && (LIQ_G[g].indexOf(l.tipo) >= 0 || (x && groupOf(x.cat) === g)); });
   }
   h += '<div class="monthnav"><button type="button" data-act="mm" data-g="' + g + '" data-v="-1" aria-label="Anterior">' + icon("left") + "</button><b>" + label + '</b><button type="button" data-act="mm" data-g="' + g + '" data-v="1" aria-label="Siguiente">' + icon("right") + "</button></div>";
   h += '<div class="filters" role="group" aria-label="Filtrar">' + MF[g].map(function(x){ return '<button type="button" class="chipb" aria-pressed="' + (f === x[0]) + '" data-act="mf" data-g="' + g + '" data-v="' + x[0] + '">' + x[1] + "</button>"; }).join("") + "</div>";
@@ -1226,7 +1272,7 @@ function movSection(g){
     liqs.sort(function(a, b){ return a.fecha < b.fecha ? 1 : -1; });
     return h + (liqs.length ? '<section class="card tight">' + liqs.map(liqRow).join("") + "</section>" : '<p class="note">No hay transferencias registradas en este período.</p>');
   }
-  if (f !== "todo") list = list.filter(function(x){ return f === "alim" ? (x.cat === "super" || x.cat === "feria") : g === "finde" ? x.tipo === f : x.cat === f; });
+  if (f !== "todo") list = list.filter(function(x){ return f === "alim" ? (x.cat === "super" || x.cat === "feria") : g === "finde" || g === "otros" ? x.tipo === f : x.cat === f; });
   h += '<div class="tot-line"><span>' + list.length + (list.length === 1 ? " movimiento" : " movimientos") + '</span><b class="num">' + fmt(sum(list, function(x){ return x.monto; })) + "</b></div>";
   if (!list.length) return h + '<div class="card"><p class="sub">Nada anotado en este período.</p><div style="margin-top:12px"><button class="btn sec" data-act="add">Anotar gasto</button></div></div>';
   return h + movDays(list);
@@ -1250,7 +1296,7 @@ function resumenCard(m){
   var list = movsIn(m + "-01", m + "-" + pad(daysIn(m))), s2 = function(fn){ return sum(list.filter(fn), function(x){ return x.monto; }); };
   var food = s2(function(x){ return x.cat === "super" || x.cat === "feria"; }), hog = 0, hogRef = 0;
   ["arriendo", "ggcc", "luz", "gas", "internet", "streaming"].forEach(function(sub){ hog += s2(function(x){ return x.cat === "hogar" && x.sub === sub; }); hogRef += presSub(sub, m); });
-  var otr = s2(function(x){ return (x.cat === "hogar" && x.sub === "otro") || (x.cat === "comp" && x.paga === "cf"); });
+  var otr = s2(function(x){ return (x.cat === "hogar" && x.sub === "otro") || ((x.cat === "comp" || x.cat === "otros") && x.paga === "cf"); });
   var ap = aporte(m), spent = food + hog + otr, queda = ap.total - (Math.max(food, foodMonth(m)) + Math.max(hog, hogRef) + Math.max(otr, presSub("otro", m)));
   var bar = function(v, t){ return '<div class="tk' + (v > t ? " over" : "") + '" aria-hidden="true"><i style="width:' + Math.min(100, t ? v / t * 100 : 0).toFixed(1) + '%"></i></div>'; };
   var h = '<section class="card"><div class="card-h"><h2>Resumen de ' + monthName(m) + "</h2></div>";
@@ -1304,25 +1350,44 @@ function viewFinde(){
   h += '<p class="note">En ' + monthName(m) + " llevan " + fmt(mt) + "." + (avg ? " Promedio por semana desde octubre: " + fmt(avg) + "." : "") + "</p>";
   var k = "semana-" + ws, open = ui.liqOpen.finde === k || (ui.liqOpen.finde === undefined && !past.length);
   if (!sm.liq && sm.items.length) h += '<div style="margin-top:8px">' + liqItemRow({ k: k, t: "Transferencia", d: "El domingo", r: sm.r }, "finde", open).replace('class="liq-row"', 'class="liq-row" style="border-top:1px solid var(--line-soft)"') + "</div>";
-  h += '<div class="btns" style="margin-top:12px"><button type="button" class="btn sec" data-act="add" data-cat="comp" data-tipo="salida">Anotar salida</button><button type="button" class="btn sec" data-act="add" data-cat="comp" data-tipo="extra">Compra compartida</button></div></section>';
+  h += '<div class="btns" style="margin-top:12px"><button type="button" class="btn sec" data-act="add" data-cat="comp" data-tipo="salida">Anotar salida</button></div></section>';
   h += movSection("finde");
+  return h + "</div>";
+}
+
+/* Otros: eventos, cosas para la casa y más; se transfiere cuando les acomode */
+function viewOtros(){
+  var m = mk(TODAY), oc = otrosCalc(), h = topBar("Otros", "Eventos y cosas para la casa");
+  h += '<div class="stack">' + banners();
+  var ml = S.movs.filter(function(x){ return x.cat === "otros" && mk(x.fecha) === m; });
+  var pa = sum(ml.filter(function(x){ return x.paga === "pablo"; }), function(x){ return x.monto; }), pu = sum(ml.filter(function(x){ return x.paga === "pau"; }), function(x){ return x.monto; });
+  var mt = sum(ml, function(x){ return x.monto; });
+  h += '<section class="card" data-info="liq-otros"><div class="card-h"><h2>Pendiente entre ustedes</h2><span class="pill info">cuando les acomode</span></div>';
+  h += '<div class="net"><span class="sub" style="margin:0">' + (oc.r > 0.5 ? "Pau le debe a Pablo" : oc.r < -0.5 ? "Pablo le debe a Pau" : "Están a mano") + '</span><b class="num">' + fmt(Math.abs(oc.r)) + "</b></div>";
+  h += '<div class="mini3"><div><span>Gastado en ' + monthName(m) + '</span><b class="num">' + fmt(mt) + '</b></div><div><span>Pagó Pablo</span><b class="num">' + fmt(pa) + '</b></div><div><span>Pagó Pau</span><b class="num">' + fmt(pu) + "</b></div></div>";
+  h += '<p class="note">Sin fecha fija: pueden transferir de a un gasto o todo junto, por ejemplo a fin de mes.</p>';
+  var k = "otros", open = ui.liqOpen.otros === k || ui.liqOpen.otros === undefined;
+  if (oc.items.length && Math.round(oc.r) !== 0) h += '<div style="margin-top:8px">' + liqItemRow({ k: k, t: "Transferencia", d: oc.items.length + (oc.items.length === 1 ? " gasto pendiente" : " gastos pendientes"), r: oc.r }, "otros", open).replace('class="liq-row"', 'class="liq-row" style="border-top:1px solid var(--line-soft)"') + "</div>";
+  h += '<div class="btns" style="margin-top:12px"><button type="button" class="btn sec" data-act="add" data-cat="otros" data-tipo="evento">Evento</button><button type="button" class="btn sec" data-act="add" data-cat="otros" data-tipo="casa">Para la casa</button></div></section>';
+  h += movSection("otros");
   return h + "</div>";
 }
 
 /* Estadísticas: resumen por grupo */
 function grupoMes(g, m){
   if (g === "danko") return dankoMes(m);
+  if (g === "otros") return m < "2026-11" ? null : sum(S.movs.filter(function(x){ return x.cat === "otros" && mk(x.fecha) === m; }), function(x){ return x.monto; });
   if (g === "finde") return m < "2026-10" ? null : sum(S.movs.filter(function(x){ return x.cat === "comp" && mk(x.fecha) === m; }), function(x){ return x.monto; });
   var hm2 = hogarMes(m); if (!hm2) return null;
   return hm2.total + alimMes(m) + sum(S.movs.filter(function(x){ return x.cat === "carmen" && mk(x.fecha) === m; }), function(x){ return x.monto; });
 }
 function grupoCard(m){
   var h = '<section class="card tight"><div class="card-h"><h2>' + cap(monthName(m)) + ' por grupo</h2></div><p class="sub">Gasto del mes y promedio de los 6 meses anteriores con datos.</p>';
-  [["hogar", "Hogar", "home", "cuentas, alimentación y Carmen"], ["danko", "Danko", "paw", "todo, incluido el seguro"], ["finde", "Finde", "people", "salidas y compras compartidas"]].forEach(function(g){
+  [["hogar", "Hogar", "home", "cuentas, alimentación y Carmen"], ["danko", "Danko", "paw", "todo, incluido el seguro"], ["finde", "Finde", "people", "salidas del fin de semana"], ["otros", "Otros", "ticket", "eventos y cosas para la casa"]].forEach(function(g){
     var v = grupoMes(g[0], m) || 0, prev = [];
     for (var k = 1; k <= 12 && prev.length < 6; k++) { var pv = grupoMes(g[0], addMonths(m, -k)); if (pv) prev.push(pv); }
     var avg = prev.length ? sum(prev) / prev.length : 0;
-    h += '<div class="row"><span class="ico' + (g[0] === "danko" ? " danko" : "") + '" style="color:var(--ink-2)">' + icon(g[2]) + '</span><div class="grow"><div class="t">' + g[1] + '</div><div class="d">' + g[3] + (avg ? " · promedio " + fmt(avg) : "") + '</div></div><div class="amt num">' + fmt(v) + (avg ? "<small>" + (v > avg ? "+" + fmt(v - avg) : "−" + fmt(avg - v).replace("−", "")) + " vs. promedio</small>" : "") + "</div></div>";
+    h += '<div class="row"><span class="ico' + (g[0] === "danko" ? " danko" : g[0] === "otros" ? " otr" : g[0] === "finde" ? " fin" : "") + '" style="color:var(--ink-2)">' + icon(g[2]) + '</span><div class="grow"><div class="t">' + g[1] + '</div><div class="d">' + g[3] + (avg ? " · promedio " + fmt(avg) : "") + '</div></div><div class="amt num">' + fmt(v) + (avg ? "<small>" + (v > avg ? "+" + fmt(v - avg) : "−" + fmt(avg - v).replace("−", "")) + " vs. promedio</small>" : "") + "</div></div>";
   });
   return h + "</section>";
 }
@@ -1364,7 +1429,7 @@ function viewMovs(){
   var list = S.movs.filter(function(x){ return mk(x.fecha) === m; });
   var alim = sum(list.filter(function(x){ return x.cat === "super" || x.cat === "feria"; }), function(x){ return x.monto; });
   var hog = sum(list.filter(function(x){ return x.cat === "hogar"; }), function(x){ return x.monto; });
-  var otros = sum(list.filter(function(x){ return x.cat === "comp" || x.cat === "danko" || x.cat === "carmen"; }), function(x){ return x.monto; });
+  var otros = sum(list.filter(function(x){ return x.cat === "comp" || x.cat === "otros" || x.cat === "danko" || x.cat === "carmen"; }), function(x){ return x.monto; });
   h += '<div class="summary-strip"><div><span>Alimentación</span><b class="num">' + fmt(alim) + '</b></div><div><span>Hogar</span><b class="num">' + fmt(hog) + '</b></div><div><span>Danko, Carmen y salidas</span><b class="num">' + fmt(otros) + "</b></div></div>";
   if (f === "liq") {
     var ls = S.liqs.filter(function(l){ return mk(l.fecha) === m; }).sort(function(a, b){ return a.fecha < b.fecha ? 1 : -1; });
@@ -1382,7 +1447,7 @@ function viewMovs(){
   if (day) h += "</div>";
   return h + "</div>";
 }
-var LIQ_N = { hogar: "Hogar", reemb: "Devoluciones", carmen: "Carmen", danko: "Danko", semana: "Salidas y otros", ajuste: "Ajuste de saldo" };
+var LIQ_N = { otros: "Otros", gasto: "Un gasto", hogar: "Hogar", reemb: "Devoluciones", carmen: "Carmen", danko: "Danko", semana: "Salidas y otros", ajuste: "Ajuste de saldo" };
 function liqText(l){
   var m = l.montos || {}, p = [];
   if (m.pauAPablo) p.push("Pau a Pablo " + fmt(m.pauAPablo));
@@ -1396,7 +1461,7 @@ function liqText(l){
 }
 function liqRow(l){
   var k = "undo-" + l.id, c = ui.confirm === k;
-  var per = l.tipo === "hogar" || l.tipo === "carmen" ? " · " + monthName(l.clave) : l.tipo === "danko" ? " · " + dShort(dankoStart(l.clave)) + " al " + dShort(l.clave) : l.tipo === "semana" ? " · semana del " + dShort(l.clave) : "";
+  var per = l.tipo === "hogar" || l.tipo === "carmen" ? " · " + monthName(l.clave) : l.tipo === "danko" ? " · " + dShort(dankoStart(l.clave)) + " al " + dShort(l.clave) : l.tipo === "semana" ? " · semana del " + dShort(l.clave) : l.tipo === "gasto" && byId(l.clave) ? " · " + movTitle(byId(l.clave)) : l.tipo === "otros" ? " · " + l.movIds.length + (l.movIds.length === 1 ? " gasto" : " gastos") : "";
   return '<div class="row"><span style="color:var(--ok)">' + icon("swap") + '</span><div class="grow"><div class="t">' + LIQ_N[l.tipo] + per + '</div><div class="d">' + dShort(l.fecha) + " · " + esc(liqText(l)) + "</div>" +
     (c ? '<div class="confirm" style="margin-top:8px"><p>¿Deshacer esta transferencia? Los gastos vuelven a quedar pendientes.</p><div class="btns"><button class="btn small danger" data-act="undo-liq" data-v="' + l.id + '">Deshacer</button><button class="btn small quiet" data-act="cancel">Cancelar</button></div></div>' : "") +
     "</div>" + (c ? "" : '<button type="button" class="btn small quiet" data-act="ask" data-v="' + k + '">Deshacer</button>') + "</div>";
@@ -1501,7 +1566,7 @@ function numMes(){
   var list = movsIn(from, to), totH = 0, totP = 0, b = "";
   ["arriendo", "ggcc", "luz", "gas", "internet", "streaming", "otro"].forEach(function(sub){
     var v = sum(list.filter(function(x){ return x.cat === "hogar" && x.sub === sub; }), function(x){ return x.monto; }), p = presSub(sub, m);
-    if (sub === "otro") v += sum(list.filter(function(x){ return x.cat === "comp" && x.paga === "cf"; }), function(x){ return x.monto; });
+    if (sub === "otro") v += sum(list.filter(function(x){ return (x.cat === "comp" || x.cat === "otros") && x.paga === "cf"; }), function(x){ return x.monto; });
     totH += v; totP += p; b += bullet(sub === "otro" ? "Otros de la cuenta familiar" : SUBS[sub], v, p, sub === "ggcc" || sub === "luz" || sub === "gas" ? (isWinter(m) ? "invierno" : "") : "");
   });
   var su = sum(list.filter(function(x){ return x.cat === "super"; }), function(x){ return x.monto; }), fe = sum(list.filter(function(x){ return x.cat === "feria"; }), function(x){ return x.monto; });
@@ -1515,7 +1580,7 @@ function numMes(){
   /* Aparte */
   var dk = sum(list.filter(function(x){ return x.cat === "danko"; }), function(x){ return x.monto; });
   var cm = sum(list.filter(function(x){ return x.cat === "carmen"; }), function(x){ return x.monto; });
-  var cp = list.filter(function(x){ return x.cat === "comp" && x.paga !== "cf"; });
+  var cp = list.filter(function(x){ return (x.cat === "comp" || x.cat === "otros") && x.paga !== "cf"; });
   var cpPa = sum(cp, function(x){ return x.partes ? x.partes.pablo : x.monto / 2; }), cpPu = sum(cp, function(x){ return x.partes ? x.partes.pau : x.monto / 2; });
   h += '<section class="card tight" data-info="num-aparte:' + m + '"><div class="card-h"><h2>Aparte de la cuenta familiar</h2></div>';
   h += '<div class="row"><span class="ico" style="color:var(--danko)">' + icon("paw") + '</span><div class="grow"><div class="t">Danko</div><div class="d">Mitad y mitad</div></div><div class="amt num">' + fmt(dk) + "<small>" + fmt(dk / 2) + " cada uno</small></div></div>";
@@ -1727,7 +1792,7 @@ function openSheet(o){
     F = { mode: "edit", id: x.id, monto: x.monto, cat: x.cat, sub: x.sub || null, tipo: x.tipo || null, paga: x.paga, corre: correOf(x), reparto: x.partes && correOf(x) === "ambos" && x.partes.pablo !== x.partes.pau ? "montos" : "mitad", pPablo: x.partes ? x.partes.pablo : 0, fecha: x.fecha, nota: x.nota || "", ej: x.ej, liq: !!x.liqId };
   } else {
     var cat = o.cat || "super";
-    F = { mode: "new", monto: o.monto || 0, cat: cat, sub: o.sub || null, tipo: o.tipo || (cat === "comp" ? "salida" : cat === "carmen" ? "visita" : null), paga: defaultPaga(cat, o.sub), corre: "ambos", reparto: "mitad", pPablo: 0, fecha: TODAY, nota: "" };
+    F = { mode: "new", monto: o.monto || 0, cat: cat, sub: o.sub || null, tipo: o.tipo || (cat === "comp" ? "salida" : cat === "carmen" ? "visita" : cat === "otros" ? "evento" : null), paga: defaultPaga(cat, o.sub), corre: "ambos", reparto: "mitad", pPablo: 0, fecha: TODAY, nota: "" };
     if (o.paga) F.paga = o.paga; if (o.fecha) F.fecha = o.fecha; if (o.nota) F.nota = o.nota;
     if (cat === "hogar" && o.sub && recById(o.sub) && !F.monto) { F.monto = recAmount(o.sub, TODAY); F.auto = true; }
     if (cat === "carmen" && !F.monto) { F.monto = recAmount(F.tipo, TODAY); F.auto = true; }
@@ -1744,14 +1809,14 @@ function renderSheet(focus){
   if (F.liq) h += '<p class="banner" style="margin:0">' + icon("info") + "<span>Este gasto ya está en una transferencia. Si cambias el monto, revisa esa transferencia en su grupo.</span></p>";
   h += '<div class="amount"><label for="f-monto">Monto</label><input id="f-monto" inputmode="numeric" autocomplete="off" placeholder="$0" value="' + (F.monto ? "$" + grp(F.monto) : "") + '"></div>';
   var fg = groupOf(F.cat), gt = TILES.filter(function(t){ return t.g === fg; });
-  h += '<fieldset><legend>Grupo</legend><div class="seg">' + ["hogar", "danko", "finde"].map(function(g){ return '<button type="button" aria-pressed="' + (fg === g) + '" data-act="f-grp" data-v="' + g + '">' + GROUPS[g] + "</button>"; }).join("") + "</div></fieldset>";
+  h += '<fieldset><legend>Grupo</legend><div class="seg">' + ["hogar", "danko", "finde", "otros"].map(function(g){ return '<button type="button" aria-pressed="' + (fg === g) + '" data-act="f-grp" data-v="' + g + '">' + GROUPS[g] + "</button>"; }).join("") + "</div></fieldset>";
   if (gt.length > 1) h += '<fieldset><legend>¿Qué fue?</legend><div class="cats">' + gt.map(function(t){ var on = F.cat === t.cat && (!t.tipo || F.tipo === t.tipo); return '<button type="button" class="cat w3" aria-pressed="' + on + '" data-act="f-cat" data-v="' + t.k + '">' + icon(t.i) + t.n + "</button>"; }).join("") + "</div></fieldset>";
   if (F.cat === "hogar") h += '<fieldset><legend>¿Qué cuenta?</legend><div class="chips">' + SUB_ORDER.map(function(s){ return '<button type="button" class="chipb" aria-pressed="' + (F.sub === s) + '" data-act="f-sub" data-v="' + s + '">' + SUBS[s] + "</button>"; }).join("") + "</div></fieldset>";
   if (F.cat === "carmen") h += '<fieldset><legend>Tipo</legend><div class="chips">' + Object.keys(CARMEN_T).map(function(s){ return '<button type="button" class="chipb" aria-pressed="' + (F.tipo === s) + '" data-act="f-tipo" data-v="' + s + '">' + CARMEN_T[s] + " · " + fmt(recAmount(s, TODAY)) + "</button>"; }).join("") + "</div></fieldset>";
   var opts = F.cat === "carmen" ? ["pablo", "pau"] : ["cf", "pablo", "pau"];
   h += '<fieldset><legend>¿Con qué se pagó?</legend><div class="seg">' + opts.map(function(p){ return '<button type="button" aria-pressed="' + (F.paga === p) + '" data-act="f-paga" data-v="' + p + '">' + (p === "cf" ? "Cuenta familiar" : NAME[p]) + "</button>"; }).join("") + "</div>" + (F.paga === "cf" || F.corre === "ambos" ? '<p class="hint">' + payHint() + "</p>" : "") + "</fieldset>";
   if (F.paga !== "cf") h += '<fieldset><legend>¿De quién es el gasto?</legend><div class="seg">' + [["ambos", "De los dos"], ["pablo", "Solo de Pablo"], ["pau", "Solo de Pau"]].map(function(c){ return '<button type="button" aria-pressed="' + (F.corre === c[0]) + '" data-act="f-corre" data-v="' + c[0] + '">' + c[1] + "</button>"; }).join("") + "</div>" + (F.corre !== "ambos" ? '<p class="hint">' + correHint() + "</p>" : "") + "</fieldset>";
-  if (F.cat === "comp" && F.paga !== "cf" && F.corre === "ambos") {
+  if ((F.cat === "comp" || F.cat === "otros") && F.paga !== "cf" && F.corre === "ambos") {
     h += '<fieldset><legend>¿Cómo se reparte?</legend><div class="seg"><button type="button" aria-pressed="' + (F.reparto === "mitad") + '" data-act="f-rep" data-v="mitad">Mitad y mitad</button><button type="button" aria-pressed="' + (F.reparto === "montos") + '" data-act="f-rep" data-v="montos">Lo de cada uno</button></div>';
     if (F.reparto === "montos") h += '<div class="two" style="margin-top:10px"><div class="field"><label for="f-ppablo">Parte de Pablo</label><input id="f-ppablo" class="input num" inputmode="numeric" value="' + (F.pPablo ? "$" + grp(F.pPablo) : "") + '" placeholder="$0"></div><div class="field"><label for="f-ppau">Parte de Pau</label><input id="f-ppau" class="input num" inputmode="numeric" value="' + (F.monto ? "$" + grp(Math.max(0, F.monto - F.pPablo)) : "") + '" placeholder="$0"></div></div>';
     h += '<p class="hint" id="f-rephint">' + repHint() + "</p></fieldset>";
@@ -1772,6 +1837,7 @@ function payHint(){
   if (c === "super" || c === "feria") return p === "cf" ? "Sale del presupuesto de alimentación." : "La cuenta familiar le devuelve a " + NAME[p] + ".";
   if (c === "hogar") { var m = mk(F.fecha); if (p === "cf") return "Pagado desde la cuenta familiar."; return liqFind("hogar", m) ? "El hogar de " + monthName(m) + " ya se transfirió: la cuenta familiar le devuelve a " + NAME[p] + "." : "Entra en la transferencia del hogar de " + monthName(m) + ", del 2 al 5."; }
   if (c === "comp") return p === "cf" ? "Sale de la cuenta familiar; no hay nada que transferir." : "Se transfiere el domingo.";
+  if (c === "otros") return p === "cf" ? "Sale de la cuenta familiar; no hay nada que transferir." : "Se transfiere cuando les acomode, por ejemplo a fin de mes.";
   if (c === "danko" && p === "cf") return "Ya es de los dos: no entra en la transferencia.";
   if (c === "danko") return "Mitad y mitad, al corte del " + S.config.corte + ".";
   if (c === "carmen") return "Mitad y mitad una vez al mes.";
@@ -1780,7 +1846,7 @@ function payHint(){
 function correHint(){
   var p = F.paga, c = F.corre;
   if (c === p) return "Lo asume " + NAME[p] + ": no se devuelve ni se reparte.";
-  var when = F.cat === "danko" ? "al corte del " + S.config.corte : F.cat === "comp" ? "el domingo" : F.cat === "carmen" ? "a fin de mes" : "en Hogar › Por transferir";
+  var when = F.cat === "danko" ? "al corte del " + S.config.corte : F.cat === "comp" ? "el domingo" : F.cat === "otros" ? "cuando les acomode" : F.cat === "carmen" ? "a fin de mes" : "en Hogar › Por transferir";
   return NAME[c] + " le devuelve " + (F.monto ? fmt(F.monto) : "el total") + " a " + NAME[p] + ", " + when + ".";
 }
 function repHint(){
@@ -1794,13 +1860,13 @@ function saveSheet(){
   F.nota = (document.getElementById("f-nota") || {}).value || "";
   if (!F.monto) { F.err = "Escribe el monto."; return renderSheet(); }
   if (F.cat === "hogar" && !F.sub) { F.err = "Elige qué cuenta es."; return renderSheet(); }
-  if (F.cat === "comp" && F.reparto === "montos" && (F.pPablo > F.monto)) { F.err = "La parte de Pablo no puede superar el total."; return renderSheet(); }
+  if ((F.cat === "comp" || F.cat === "otros") && F.reparto === "montos" && (F.pPablo > F.monto)) { F.err = "La parte de Pablo no puede superar el total."; return renderSheet(); }
   var o = { fecha: F.fecha, cat: F.cat, monto: F.monto, paga: F.paga, nota: F.nota.trim() };
   if (F.cat === "hogar") o.sub = F.sub;
-  if (F.cat === "comp" || F.cat === "carmen") o.tipo = F.tipo;
+  if (F.cat === "comp" || F.cat === "carmen" || F.cat === "otros") o.tipo = F.tipo;
   var co = F.paga === "cf" ? "ambos" : (F.corre || "ambos");
   if (co !== "ambos") o.partes = { pablo: co === "pablo" ? F.monto : 0, pau: co === "pau" ? F.monto : 0 };
-  else if (F.cat === "comp") o.partes = F.reparto === "mitad" ? { pablo: Math.round(F.monto / 2), pau: F.monto - Math.round(F.monto / 2) } : { pablo: F.pPablo, pau: F.monto - F.pPablo };
+  else if (F.cat === "comp" || F.cat === "otros") o.partes = F.reparto === "mitad" ? { pablo: Math.round(F.monto / 2), pau: F.monto - Math.round(F.monto / 2) } : { pablo: F.pPablo, pau: F.monto - F.pPablo };
   if (F.cat === "danko" && F.tipo) o.tipo = F.tipo;
   var x, prev = null;
   if (F.mode === "edit") { x = byId(F.id); prev = JSON.parse(JSON.stringify(x)); ["sub", "tipo", "partes"].forEach(function(k){ delete x[k]; }); Object.keys(o).forEach(function(k){ x[k] = o[k]; }); }
@@ -1820,6 +1886,7 @@ function feedback(x){
     return (ls >= 0 ? "Quedan " + fmt(ls) + " de supermercado" : "Supermercado se pasó " + fmt(-ls)) + " y " + (lf >= 0 ? fmt(lf) + " de feria" : "feria se pasó " + fmt(-lf)) + " esta semana.";
   }
   if (x.cat === "hogar") { if (x.paga === "cf") return "Pagado desde la cuenta familiar."; var m = mk(x.fecha); return liqFind("hogar", m) ? "La cuenta familiar le devuelve " + fmt(x.monto) + " a " + NAME[x.paga] + "." : "Entra en la transferencia del hogar de " + monthName(m) + "."; }
+  if (x.cat === "otros") { if (x.paga === "cf") return "Pagado desde la cuenta familiar."; var o3 = other(x.paga); return NAME[o3] + " le debe " + fmt(parte(x, o3)) + " a " + NAME[x.paga] + "; se transfiere cuando les acomode."; }
   if (x.cat === "comp") { if (x.paga === "cf") return "Pagado desde la cuenta familiar."; var o2 = other(x.paga); return NAME[o2] + " le debe " + fmt(x.partes[o2]) + " a " + NAME[x.paga] + "; se transfiere el domingo."; }
   if (x.cat === "danko" && x.paga === "cf") return "Pagado con la cuenta familiar; no entra en la transferencia de Danko.";
   if (x.cat === "danko") { var d = dankoCalc(dankoEnd(x.fecha)); return "Danko lleva " + fmt(d.total) + " del " + dShort(d.st) + " al " + dShort(d.end) + "."; }
@@ -1852,14 +1919,15 @@ function undoLiq(id){
 }
 
 /* ---------- Navegación y render ---------- */
-var VIEWS = ["hogar", "danko", "finde", "estadisticas", "ajustes"];
+var VIEWS = ["hogar", "danko", "finde", "otros", "estadisticas", "ajustes"];
 var ALIAS = { inicio: "hogar", movimientos: "hogar", liquidar: "hogar", numeros: "estadisticas" };
 function route(){ var h = (location.hash || "").replace("#", ""); h = ALIAS[h] || h; ui.view = VIEWS.indexOf(h) >= 0 ? h : "hogar"; if (document.getElementById("sheet-root")) closeSheet(); ui.confirm = null; ui.edit = null; render(); window.scrollTo(0, 0); }
 function navCount(){
-  var pc = { hogar: 0, danko: 0, finde: 0 }, cur = mk(TODAY), late = +TODAY.slice(8, 10) >= 25;
+  var pc = { hogar: 0, danko: 0, finde: 0, otros: 0 }, cur = mk(TODAY), late = +TODAY.slice(8, 10) >= 25;
   pendientes().forEach(function(x){
     if (x.cur) return;
     if (x.danko && TODAY < x.k.slice(6, 14) + "25") return;
+    if (x.k === "otros" && +TODAY.slice(8, 10) < 25) return;
     if (x.k.indexOf("carmen-") === 0 && x.k.slice(7) === cur && !late) return;
     if (x.r != null && Math.abs(x.r) > 0 || x.txt || x.r == null) pc[pendGroup(x.k)]++;
   });
@@ -1868,13 +1936,13 @@ function navCount(){
 function renderNav(){
   var pc = navCount();
   var it = function(v, n, ic){ return '<a href="#' + v + '"' + (ui.view === v ? ' aria-current="page"' : "") + ">" + icon(ic) + "<span>" + n + "</span>" + (pc[v] ? '<span class="badge" aria-label="' + pc[v] + ' por transferir">' + pc[v] + "</span>" : "") + "</a>"; };
-  var g = ui.view === "danko" || ui.view === "finde" ? ui.view : "hogar";
-  document.getElementById("nav").innerHTML = '<div class="nav-in">' + it("hogar", "Hogar", "home") + it("danko", "Danko", "paw") + '<button type="button" class="add" data-act="add" aria-label="Anotar gasto en ' + GROUPS[g] + '"><span class="plus">' + icon("plus") + "</span><span>Anotar</span></button>" + it("finde", "Finde", "people") + it("estadisticas", "Estadísticas", "chart") + "</div>";
+  var g = ui.view === "danko" || ui.view === "finde" || ui.view === "otros" ? ui.view : "hogar";
+  document.getElementById("nav").innerHTML = '<div class="nav-in">' + it("hogar", "Hogar", "home") + it("danko", "Danko", "paw") + '<button type="button" class="add" data-act="add" aria-label="Anotar gasto en ' + GROUPS[g] + '"><span class="plus">' + icon("plus") + "</span><span>Anotar</span></button>" + it("finde", "Finde", "people") + it("otros", "Otros", "ticket") + "</div>";
 }
 function render(){
   var a = document.getElementById("app");
-  document.documentElement.setAttribute("data-g", ui.view === "danko" || ui.view === "finde" ? ui.view : "hogar");
-  var html = ui.view === "danko" ? viewDanko() : ui.view === "finde" ? viewFinde() : ui.view === "estadisticas" ? viewNumeros() : ui.view === "ajustes" ? viewAjustes() : viewHogar();
+  document.documentElement.setAttribute("data-g", ui.view === "danko" || ui.view === "finde" || ui.view === "otros" ? ui.view : "hogar");
+  var html = ui.view === "otros" ? viewOtros() : ui.view === "danko" ? viewDanko() : ui.view === "finde" ? viewFinde() : ui.view === "estadisticas" ? viewNumeros() : ui.view === "ajustes" ? viewAjustes() : viewHogar();
   a.innerHTML = html;
   renderNav();
 }
@@ -1889,7 +1957,7 @@ document.addEventListener("input", function(e){
   var t = e.target;
   if (t.id === "f-monto") {
     F.monto = moneyInput(t); F.auto = false;
-    if (F.cat === "comp") { var pp = document.getElementById("f-ppau"); if (pp) pp.value = F.monto ? "$" + grp(Math.max(0, F.monto - F.pPablo)) : ""; var hh = document.getElementById("f-rephint"); if (hh) hh.textContent = repHint(); }
+    if (F.cat === "comp" || F.cat === "otros") { var pp = document.getElementById("f-ppau"); if (pp) pp.value = F.monto ? "$" + grp(Math.max(0, F.monto - F.pPablo)) : ""; var hh = document.getElementById("f-rephint"); if (hh) hh.textContent = repHint(); }
   } else if (t.id === "f-ppablo") {
     F.pPablo = Math.min(moneyInput(t), F.monto || 0);
     var q = document.getElementById("f-ppau"); if (q) q.value = F.monto ? "$" + grp(Math.max(0, F.monto - F.pPablo)) : "";
@@ -1915,7 +1983,7 @@ document.addEventListener("click", function(e){
   var act = el.getAttribute("data-act"), v = el.getAttribute("data-v");
   if (act === "sheet-bg") { if (e.target === el) closeSheet(); return; }
   switch (act) {
-    case "add": var dc = el.getAttribute("data-cat"); if (!dc) dc = ui.view === "danko" ? "danko" : ui.view === "finde" ? "comp" : "super"; openSheet({ cat: dc, tipo: el.getAttribute("data-tipo"), sub: el.getAttribute("data-sub") }); break;
+    case "add": var dc = el.getAttribute("data-cat"); if (!dc) dc = ui.view === "danko" ? "danko" : ui.view === "finde" ? "comp" : ui.view === "otros" ? "otros" : "super"; openSheet({ cat: dc, tipo: el.getAttribute("data-tipo"), sub: el.getAttribute("data-sub") }); break;
     case "edit": openSheet({ id: v }); break;
     case "sheet-close": closeSheet(); break;
     case "f-grp": if (groupOf(F.cat) === v) break; v = GFIRST[v];
@@ -1952,6 +2020,8 @@ document.addEventListener("click", function(e){
     case "go-liq": e.preventDefault(); var gv = pendGroup(v); ui.liqOpen[gv] = v; if (ui.view !== gv) location.hash = gv; else render(); setTimeout(function(){ var c = document.getElementById("liq-" + v); if (c) c.scrollIntoView({ block: "center" }); }, 150); break;
     case "liq-open": var lg = pendGroup(v); ui.liqOpen[lg] = ui.liqOpen[lg] === v ? "" : v; ui.confirm = null; render(); setTimeout(function(){ var c = document.getElementById("liq-" + v); if (c && ui.liqOpen[lg]) c.scrollIntoView({ block: "nearest", behavior: "smooth" }); }, 30); break;
     case "info": openInfo(v); break;
+    case "liq-otros": var oc3 = otrosCalc(); addLiq("otros", TODAY, oc3.items.map(function(x){ return x.id; }), { pauAPablo: Math.max(0, Math.round(oc3.r)), pabloAPau: Math.max(0, -Math.round(oc3.r)) }); break;
+    case "liq-uno": var ux = byId(v); if (!ux || ux.liqId) break; addLiq("gasto", ux.id, [ux.id], montosUno(ux, el.getAttribute("data-c"))); break;
     case "reg-seguro": var vs = dankoCalc(v).items.filter(function(x){ return x.virtual; })[0]; if (!vs) break; openSheet({ cat: "danko", tipo: "seguro", monto: vs.monto, paga: vs.paga, nota: "Seguro Cactus", fecha: TODAY >= dankoStart(v) && TODAY <= v ? TODAY : vs.fecha }); break;
     case "mm": var gg = el.getAttribute("data-g"); if (gg === "danko") ui.mm.danko = +v > 0 ? dankoEnd(addDays(ui.mm.danko || dankoEnd(TODAY), 1)) : dankoEnd(addDays(dankoStart(ui.mm.danko || dankoEnd(TODAY)), -1)); else ui.mm[gg] = addMonths(ui.mm[gg], +v); render(); break;
     case "mf": ui.mf[el.getAttribute("data-g")] = v; render(); break;
